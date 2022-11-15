@@ -1,0 +1,27 @@
+.one-dialog{
+    width: 950px;
+    padding: 5px;
+    height: auto;
+}
+
+.one-dialog-item {
+    padding: 2px;
+    display: flex;
+}
+
+.one-dialog-name {
+    display: flex;
+    justify-content: center;
+}
+
+.one-dialog-name h2{
+    margin: 10px;
+}
+
+.one-dialog-item h2{
+    margin: 0;
+}
+
+.right{
+    justify-content: end;
+}

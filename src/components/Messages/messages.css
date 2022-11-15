@@ -1,0 +1,9 @@
+.messages{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.messages > div {
+    border: solid 1px black;
+}
