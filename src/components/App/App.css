@@ -1,0 +1,18 @@
+.App {
+  padding: 10px;
+}
+
+.main-content{
+  height: auto;
+  padding: 5px;
+  border: solid 1px black;
+}
+
+.main-content > div {
+  margin-bottom: 10px;
+}
+
+
+
+
+

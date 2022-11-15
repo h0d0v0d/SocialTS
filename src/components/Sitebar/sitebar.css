@@ -1,0 +1,16 @@
+.app-sitebar{
+    margin-bottom: 10px;
+    height: 70px;
+    border: solid 1px black;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.normalNavButton{
+    color: blue;
+}
+
+.activeNavButton{
+    color: red;
+}
