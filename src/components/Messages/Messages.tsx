@@ -3,28 +3,20 @@ import React, { useState, useEffect } from 'react';
 import Dialogs from '../Dialogs/Dialogs';
 import OneDialog from '../OneDialog/OneDialog';
 
-import { MessagesDataItemType } from '../App/App';
+import { MessagesDataItemType } from '../../redux/store';
 import './messages.css'
 
 export type MessagesPropsType = {
     messagesData: Array<MessagesDataItemType>
 }
 
-const initialObject = {
-    id: 1, 
-    name: 'Friend 1', 
-    message: [
-      {id: 1, status: 1, src: 'png', messageText: 'Привет'}, 
-      {id: 2, status: 0, src: 'png', messageText: 'Привет'}
-    ]
-  }
 
 const Messages = (props: MessagesPropsType) => {
 
-    const [activeIdDialog, setActiveIdDialog] = useState<number>(1)
-    const [activeDialogData, setActiveDialogData] = useState<MessagesDataItemType>(initialObject)
+    const [activeIdDialog, setActiveIdDialog] = useState<string>(props.messagesData[0].id)
+    const [activeDialogData, setActiveDialogData] = useState<MessagesDataItemType>(props.messagesData[0])
 
-    const changeActiveIdDialog = (id: number) => {
+    const changeActiveIdDialog = (id: string) => {
         console.log('changed')
         setActiveIdDialog(id)
     }
@@ -43,7 +35,7 @@ const Messages = (props: MessagesPropsType) => {
             <h2>{activeIdDialog}</h2>
             <Dialogs messagesData={props.messagesData} 
                      changeActiveIdDialog={changeActiveIdDialog}/>
-            <OneDialog  activeDialogData={activeDialogData}/>
+            <OneDialog activeDialogData={activeDialogData}/>
         </div>
     );
 };

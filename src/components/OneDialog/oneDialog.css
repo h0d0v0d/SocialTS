@@ -25,3 +25,25 @@
 .right{
     justify-content: end;
 }
+
+.one-dialog-input-wrapp{
+    margin-top: 15px;
+    display: flex;
+    justify-content: end;
+}
+
+.one-dialog-input{
+    border: solid 1px rgb(145, 28, 134);
+    width: 300px;
+    height: 26px;
+    box-sizing: border-box;
+}
+
+.one-dialog-send-button{
+    border: none;
+    border: solid 1px rgb(145, 28, 134);
+    border-radius: 12px;
+    height: 26px;
+    width: 70px;
+    margin-left: 20px;
+}

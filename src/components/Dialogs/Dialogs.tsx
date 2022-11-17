@@ -4,8 +4,9 @@ import { MessagesPropsType } from '../Messages/Messages';
 import './dialogs.css'
 
 interface DialogsPropsType extends MessagesPropsType {
-    changeActiveIdDialog: (id: number) => void
- }
+    changeActiveIdDialog: (id: string) => void
+}
+
 const Dialogs = (props: DialogsPropsType) => {
     return (
         <div className='dialogs'>

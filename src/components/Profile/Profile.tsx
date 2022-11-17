@@ -1,25 +1,40 @@
 import PostItem from '../PostItem/PostItem';
 
-import { PostItemType } from '../App/App';
+import { PostItemType, UserType } from '../../redux/store';
+
+import store from '../../redux/store';
 
 import './profile.css'
+import { useState } from 'react';
 
 type ProfilePropsType = {
-    postData: Array<PostItemType>
+    user: UserType
+    postData: Array<PostItemType>,
+    dispatch: (a: any) => void
 }
-
-export const png: string = 'https://play-lh.googleusercontent.com/N7p1LUZQj1Zrth7Jmn6tMlogB8JYv-ozxxJC-Qwq_NIqBluDSUj0Mt8BeBphM0rX9A'
 
 
 const Profile = (props: ProfilePropsType) => {
+
+    const [value, setValue] = useState<string>('')
+
+    const changeInput = (newText: string) => {
+        setValue(newText)
+    }
+
+    const addNewPost = () => {
+        const fun = props.dispatch.bind(store)
+        fun({type: 'ADD_NEW_POST', text: value})
+    }
+
     return (
         <div className='profile' >
-            <img src={png} alt="photo" className='profile-img'/>
+            <img src={props.user.png} alt="user" className='profile-img'/>
             <h2 className='name'>Yahor Sera</h2>
             <h5 className='status' >Cтатус: Дорогой дневник....</h5>
             <h3 className='new-post-titile'>New post</h3>
-            <input className='new-post-input' type="text" />
-            <button className='profile-button'>Add post</button>
+            <input className='new-post-input' type="text" value={value} onChange={(e) => {changeInput(e.currentTarget.value)}}/>
+            <button className='profile-button' onClick={addNewPost}>Add post</button>
             <div className='post-list' >
                 {
                     props.postData.map((item) =>{
