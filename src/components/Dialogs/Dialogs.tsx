@@ -1,11 +1,13 @@
 import React from 'react';
 
-import { MessagesPropsType } from '../Messages/Messages';
+import { MessagesDataItemType } from '../../redux/store';
 import './dialogs.css'
 
-interface DialogsPropsType extends MessagesPropsType {
+interface DialogsPropsType  {
+    messagesData: Array<MessagesDataItemType>
     changeActiveIdDialog: (id: string) => void
 }
+
 
 const Dialogs = (props: DialogsPropsType) => {
     return (

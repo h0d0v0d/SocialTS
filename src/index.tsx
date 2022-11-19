@@ -3,23 +3,30 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './components/App/App';
 
-import store from './redux/store';
+import myStore, { DataType } from './redux/store';
+import reduxStore from './redux/redux-store';
+
+import { StoreType } from './redux/store';
 
 import { BrowserRouter as Router} from "react-router-dom";
 
-function render() {
-  const root = ReactDOM.createRoot(
-    document.getElementById('root') as HTMLElement
-  );
+
+const root = ReactDOM.createRoot(
+  document.getElementById('root') as HTMLElement
+);
+
+function render(store: StoreType) {
   root.render(
     <Router>
-      <App store={store}/>
+      <App state={store.getState()} dispatch={store.dispatch.bind(store)}/>
     </Router>
   )
 }
 
-render()
+render(myStore)
 
-store.subscribe(render)
+myStore.subscribe(() => {
+  render(myStore)
+})
 
 

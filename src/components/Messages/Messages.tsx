@@ -3,13 +3,16 @@ import React, { useState, useEffect } from 'react';
 import Dialogs from '../Dialogs/Dialogs';
 import OneDialog from '../OneDialog/OneDialog';
 
-import { MessagesDataItemType } from '../../redux/store';
+import { MessagesDataItemType, ActionType} from '../../redux/store';
+import { sendMessageActionCreator } from '../../redux/reducers/messagesReducer';
+
 import './messages.css'
 
 export type MessagesPropsType = {
     messagesData: Array<MessagesDataItemType>
+    newMessageText: string
+    dispatch: (a: ActionType) => void
 }
-
 
 const Messages = (props: MessagesPropsType) => {
 
@@ -26,16 +29,22 @@ const Messages = (props: MessagesPropsType) => {
         setActiveDialogData(activeDialogData)
     }
 
+    const onSendMessage = () => {
+        props.dispatch(sendMessageActionCreator(activeIdDialog))
+    }
+
     useEffect(() => {
-        changeActiveDialogData()
+        changeActiveDialogData() 
     }, [activeIdDialog])
 
     return (
         <div className='messages'>
-            <h2>{activeIdDialog}</h2>
             <Dialogs messagesData={props.messagesData} 
                      changeActiveIdDialog={changeActiveIdDialog}/>
-            <OneDialog activeDialogData={activeDialogData}/>
+            <OneDialog activeDialogData={activeDialogData}
+                       onSendMessage={onSendMessage}
+                       dispatch={props.dispatch}
+                       newMessageText={props.newMessageText}/>
         </div>
     );
 };
