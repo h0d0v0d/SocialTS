@@ -1,16 +1,41 @@
 .app-sitebar{
     margin-bottom: 10px;
     height: 70px;
-    border: solid 1px black;
     display: flex;
     justify-content: space-around;
     align-items: center;
 }
 
-.normalNavButton{
-    color: blue;
+.nav-button-wrapper{
+    border: solid 1px black;
+    height: 40px;
+    width: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: solid 1.5px green;
+    border-radius: 20px;
+    color: red;
 }
 
-.activeNavButton{
-    color: red;
+.normall-wrap{
+    background-color: white;
+}
+
+.activee-wrap{
+    background-color: green;
+}
+
+
+.nav-button{
+    font-size: 20px;
+    text-decoration: none;
+}
+
+.normall{
+    color: green;
+}
+
+.activee{
+    color: white;
 }

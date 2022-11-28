@@ -1,8 +1,17 @@
 import { v1 } from "uuid"
 
-import store, { ProfilePageType, ActionType} from "../store"
+import {ActionType} from "../store"
 
-const  initialState = {
+export type PostItemType = {
+  id: string, 
+  userText: string,
+}
+export type ProfilePageType = {
+  postsData: Array<PostItemType>, 
+  postText: string
+}
+
+const  initialState: ProfilePageType = {
   postsData: [
     {id: v1(), userText: 'Это мой первый пост'},
     {id: v1(), userText: 'Это мой второй пост'},
@@ -13,12 +22,17 @@ const  initialState = {
 function profileReducer(state : ProfilePageType = initialState, action: ActionType) {
     switch (action.type) {
       case ADD_NEW_POST:
-        state.postsData.push({id: v1(), userText: state.postText})
-        state.postText = ''
-        return state
+        const newState = {
+          postsData: [...state.postsData, {id: v1(), userText: state.postText}],
+          postText: ''
+        }
+        return newState 
       case CHANGE_POST_TEXT:
-        state.postText = action.text
-        return state
+        const newState2 = {
+          ...state,
+          postText: action.text
+        }
+        return newState2
       default: 
         return state
     }

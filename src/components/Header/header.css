@@ -1,5 +1,12 @@
 .app-header{
     margin-bottom: 10px;
     height: 70px;
-    border: solid 1px black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to right, red, orange, yellow, green, cyan, blue, violet);
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    border-radius: 100px;
 }

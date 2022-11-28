@@ -1,45 +1,29 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Routes, Route} from "react-router-dom";
 
 import Header from '../Header/Header';
 import Sitebar from '../Sitebar/Sitebar';
-import Profile from '../Profile/Profile';
-import Messages from '../Messages/Messages';
 import Music from '../Music/Music';
 import News from '../News/News';
 import Settings from '../Settings/Settings';
+
+import ProfileContainer from '../Containers/ProfileContainer';
+import MessagesContainer from '../Containers/MessagesContainer';
  
 import './App.css';
 
-import {DataType} from '../../redux/store'
-
-type appPropsType = {
-  state: any
-  dispatch: any
-}
-
-function App(props: appPropsType) {
-
-  console.log(props.state)
-
+const App: React.FC<{}> = () => {
   return (
     <div className="App">
-      <Header/>
+      <Header/> 
       <Sitebar/>
-      <div className='main-content'>
+      <div className='main-content'> 
         <Routes>
-          <Route path='/' 
-                 element={<Profile postData={props.state.profilePage.postsData} 
-                                   user={props.state.user}
-                                   dispatch={props.dispatch}
-                                   postText={props.state.profilePage.postText}/>} />
+          <Route path='/' element={<ProfileContainer/>} /> 
           <Route path='/music' element={<Music/>}/>
-          <Route path='/messages' 
-                 element={<Messages messagesData={props.state.messagesPage.messagesData} 
-                                    dispatch={props.dispatch}
-                                    newMessageText={props.state.messagesPage.newMessageText}/>}/>
+          <Route path='/messages' element={<MessagesContainer/>}/>
           <Route path='/news' element={<News/>}/>
-          <Route path='/settings' element={<Settings/>}/> 
+          <Route path='/settings' element={<Settings/>}/> v 
         </Routes>
       </div>
     </div> 

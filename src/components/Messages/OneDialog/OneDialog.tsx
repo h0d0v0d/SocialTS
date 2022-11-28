@@ -1,5 +1,4 @@
-import { MessageItemType, MessagesDataItemType } from '../../redux/store';
-import { changeMessageTextActionCreator } from '../../redux/reducers/messagesReducer';
+import { MessageItemType, MessagesDataItemType } from '../../../redux/reducers/messagesReducer';
 
 import './oneDialog.css'
 
@@ -7,24 +6,20 @@ type OneDialogPropsType = {
     activeDialogData: MessagesDataItemType
     newMessageText: string
     onSendMessage: () => void
-    dispatch: (m: any) => void
+    onChangeMessageText: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-const OneDialog = (props: OneDialogPropsType) => {
-
-    const onChangeNewMessageText = (text: string) => {
-        props.dispatch(changeMessageTextActionCreator(text))
-    }
-
+const OneDialog: React.FC<OneDialogPropsType> = (props) => {
     return ( 
-        <div className='one-dialog'>
+        <div className='one-dialog'> 
             <div className='one-dialog-name'>
                 <h2>{props.activeDialogData.name}</h2>
             </div>
             {
                 props.activeDialogData.message.map((item: MessageItemType) => {
+                    const classs: string = item.status === 1 ? 'one-dialog-item right' : 'one-dialog-item'
                     return (
-                        <div key={item.id} className={`${item.status === 1 ? 'one-dialog-item right' : 'one-dialog-item'}`}> 
+                        <div key={item.id} className={classs}> 
                             <h2>{item.messageText}</h2>
                         </div>
                     )
@@ -34,8 +29,8 @@ const OneDialog = (props: OneDialogPropsType) => {
                 <input type="text" 
                        className='one-dialog-input' 
                        value={props.newMessageText} 
-                       onChange={(e) => {onChangeNewMessageText(e.currentTarget.value)}}/>
-                <button className='one-dialog-send-button' onClick={() => {props.onSendMessage()}}>Отправить</button>
+                       onChange={props.onChangeMessageText}/>
+                <button className='one-dialog-send-button' onClick={props.onSendMessage}>Отправить</button>
             </div>
         </div> 
     );

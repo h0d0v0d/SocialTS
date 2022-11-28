@@ -1,17 +1,43 @@
+import { useState } from 'react';
 import {NavLink} from 'react-router-dom'
 
 import './sitebar.css'
 
 const Sitebar = () => {
+
+    const [navButtonData, setNavButtonData] = useState([
+        {id: '1', way: '/', name: 'Profile', active: true},
+        {id: '2', way: '/messages', name: 'Messages', active: false},
+        {id: '3', way: '/news', name: 'News', active: false},
+        {id: '4', way: '/music', name: 'Music', active: false},
+        {id: '5', way: '/settings', name: 'Settings', active: false},
+    ])
+
+    const changeActiveNavButton = (id: string) => {
+        setNavButtonData(navButtonData.map(b => b.id === id ? {...b, active: true} : {...b, active: false}))
+    }
+
     return (
         <div className='app-sitebar' >
-            <NavLink end to='/' className={({isActive}) => {return isActive ? 'activeNavButton' : 'normalNavButton'}}>Profile</NavLink>
-            <NavLink end to='/messages' className={({isActive}) => {return isActive ? 'activeNavButton' : 'normalNavButton'}}>Messages</NavLink>
-            <NavLink end to='/news' className={({isActive}) => {return isActive ? 'activeNavButton' : 'normalNavButton'}}>News</NavLink>
-            <NavLink end to='/music' className={({isActive}) => {return isActive ? 'activeNavButton' : 'normalNavButton'}}>Music</NavLink>
-            <NavLink end to='/settings' className={({isActive}) => {return isActive ? 'activeNavButton' : 'normalNavButton'}}>Settings</NavLink>
+            {
+                navButtonData.map((b) => {
+                    let classs = `nav-button ${b.active ? 'activee' : 'normall'}`
+                    let wrappClass = `nav-button-wrapper ${b.active ? 'activee-wrap' : 'normall-wrap'}`
+                    return (
+                        <div className={wrappClass}
+                             key={b.id}
+                             onClick={() => {changeActiveNavButton(b.id)}}>
+                            <NavLink end
+                                     to={b.way}
+                                     className={classs}>{b.name}</NavLink>
+                        </div>
+                    )
+                })
+            }
         </div>
     );
 };
 
-export default Sitebar;
+export default Sitebar; 
+
+

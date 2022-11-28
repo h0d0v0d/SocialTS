@@ -1,44 +1,31 @@
-import PostItem from '../PostItem/PostItem';
-import { PostItemType, UserType } from '../../redux/store';
+import PostItem from './PostItem/PostItem';
 
-import { addPostActionCreator, changePostTextActionCreator } from '../../redux/reducers/profileReducer';
+import { ProfileCommonType } from '../Containers/ProfileContainer';
+import { PostItemType } from '../../redux/reducers/profileReducer'
 
 import './profile.css'
 
-type ProfilePropsType = {
-    user: UserType
-    postData: Array<PostItemType>,
-    postText: string
-    dispatch: (a: any) => void
-}
+const Profile: React.FC<ProfileCommonType> = (props) => {
 
-const Profile = (props: ProfilePropsType) => {
-
-    const changeInput = (newText: string) => {
-        props.dispatch(changePostTextActionCreator(newText))
-    }
-
-    const addNewPost = () => {
-        props.dispatch(addPostActionCreator())
-    }
+    const png: string = 'https://play-lh.googleusercontent.com/N7p1LUZQj1Zrth7Jmn6tMlogB8JYv-ozxxJC-Qwq_NIqBluDSUj0Mt8BeBphM0rX9A'
 
     return (
         <div className='profile' >
-            <img src={props.user.png} alt="user" className='profile-img'/>
+            <img src={png} alt="user" className='profile-img'/>
             <h2 className='name'>Yahor Sera</h2>
             <h5 className='status' >Cтатус: Дорогой дневник....</h5>
             <h3 className='new-post-titile'>New post</h3>
-            <input className='new-post-input' type="text" value={props.postText} onChange={(e) => {changeInput(e.currentTarget.value)}}/>
-            <button className='profile-button' onClick={addNewPost}>Add post</button>
+            <input className='new-post-input' type="text" value={props.postText} onChange={props.onChangeInput}/>
+            <button className='profile-button' onClick={props.addNewPost}>Add post</button>
             <div className='post-list' >
                 {
-                    props.postData.map((item) =>{
+                    props.postsData.map((item: PostItemType) =>{
                         return <PostItem itemPostData={item} key={item.id}/>
                     })
                 }
             </div>
         </div>
-    );
+    ); 
 };
 
 export default Profile;

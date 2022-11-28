@@ -1,4 +1,4 @@
-import { PostItemType } from '../../redux/store'
+import { PostItemType } from '../../../redux/reducers/profileReducer'
 
 import './postItem.css'
 
@@ -6,7 +6,7 @@ type PostItemPropsType = {
     itemPostData: PostItemType
 }
 
-const PostItem = (props: PostItemPropsType) => {
+const PostItem: React.FC<PostItemPropsType> = (props) => {
 
     const png: string = 'https://play-lh.googleusercontent.com/N7p1LUZQj1Zrth7Jmn6tMlogB8JYv-ozxxJC-Qwq_NIqBluDSUj0Mt8BeBphM0rX9A'
 
