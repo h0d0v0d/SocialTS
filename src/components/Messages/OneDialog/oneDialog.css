@@ -1,29 +1,44 @@
 .one-dialog{
     width: 950px;
-    padding: 5px;
     height: auto;
-}
-
-.one-dialog-item {
-    padding: 2px;
-    display: flex;
+    border: solid 2px green;
+    border-radius: 5px;
 }
 
 .one-dialog-name {
     display: flex;
     justify-content: center;
+    border-bottom: solid 2px green;
 }
 
 .one-dialog-name h2{
-    margin: 10px;
+    margin: 3px;
+    font-size: 22px;
 }
 
-.one-dialog-item h2{
-    margin: 0;
+.one-dialog-chat{
+    padding: 8px;
+}
+
+.one-dialog-item {
+    padding: 2px;
+    display: flex;
+    margin-bottom: 5px;
 }
 
 .right{
     justify-content: end;
+}
+
+.text{
+    border: solid 2px green;
+    padding: 4px 6px;
+    border-radius: 10px;
+}
+
+.one-dialog-item h2{
+    font-size: 18px;
+    margin: 0;
 }
 
 .one-dialog-input-wrapp{
@@ -33,17 +48,20 @@
 }
 
 .one-dialog-input{
-    border: solid 1px rgb(145, 28, 134);
+    border: solid 2px green;
+    border-radius: 5px;
     width: 300px;
-    height: 26px;
+    height: 30px;
     box-sizing: border-box;
 }
 
 .one-dialog-send-button{
-    border: none;
-    border: solid 1px rgb(145, 28, 134);
-    border-radius: 12px;
-    height: 26px;
-    width: 70px;
+    border: solid 1px green;
+    border-radius: 5px;
+    background-color: green;
+    color: white;
+    font-size: 14px;
+    height: 30px;
+    width: auto;
     margin-left: 20px;
 }

@@ -4,13 +4,14 @@ import {NavLink} from 'react-router-dom'
 import './sitebar.css'
 
 const Sitebar = () => {
-
+    
     const [navButtonData, setNavButtonData] = useState([
         {id: '1', way: '/', name: 'Profile', active: true},
         {id: '2', way: '/messages', name: 'Messages', active: false},
-        {id: '3', way: '/news', name: 'News', active: false},
-        {id: '4', way: '/music', name: 'Music', active: false},
-        {id: '5', way: '/settings', name: 'Settings', active: false},
+        {id: '3', way: '/users', name: 'Users', active: false},
+        {id: '4', way: '/news', name: 'News', active: false},
+        {id: '5', way: '/music', name: 'Music', active: false},
+        {id: '6', way: '/settings', name: 'Settings', active: false},
     ])
 
     const changeActiveNavButton = (id: string) => {

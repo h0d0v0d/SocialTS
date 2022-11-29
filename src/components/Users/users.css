@@ -1,0 +1,11 @@
+.users-page{
+}
+
+.serch{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    font-size: 23px;
+}
+

@@ -3,7 +3,7 @@ import { PostItemType } from '../../../redux/reducers/profileReducer'
 import './postItem.css'
 
 type PostItemPropsType = {
-    itemPostData: PostItemType
+    itemPostData: PostItemType 
 }
 
 const PostItem: React.FC<PostItemPropsType> = (props) => {
@@ -14,9 +14,9 @@ const PostItem: React.FC<PostItemPropsType> = (props) => {
         <div className='post-item' >
             <img src={png} alt="user-photo" className='post-item-img'/>
             <h2>{props.itemPostData.userText}</h2>
-            <button className='profile-button'>Like</button>
-            <button className='profile-button'>Dislike</button>
-            <button className='profile-button'>Repost</button>
+            <button className='profile-button like'>Like</button>
+            <button className='profile-button dislike'>Dislike</button>
+            <button className='profile-button repost'>Repost</button>
         </div>
     );
 };

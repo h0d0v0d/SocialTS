@@ -4,6 +4,30 @@
 }
 
 .dialogs-item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 5px;
-    border: solid 1px black;
+}
+
+.dialogs-item-info{
+    width: 360px;
+    border: solid 2px green;
+    border-radius: 5px;
+    font-size: 20px;
+    color: green;
+    background: white;
+    padding: 3px;
+}
+
+.circle{
+    width: 23px;
+    height: 23px;
+    border: solid 2px green;
+    border-radius: 50%;
+    background-color: white;
+}
+
+.active-circle{
+    background: green;
 }

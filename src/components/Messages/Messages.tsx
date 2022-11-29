@@ -30,8 +30,9 @@ const Messages: React.FC<MessagesCommonType> = (props) => {
     }, [props.messagesData, activeIdDialog])
     
     return (
-        <div className='messages'>
+        <div className='messages'> 
             <Dialogs messagesData={props.messagesData} 
+                     activeIdDialog={activeIdDialog}
                      changeActiveIdDialog={changeActiveIdDialog}/>
             <OneDialog activeDialogData={activeDialogData}
                        onSendMessage={onSendMessage}

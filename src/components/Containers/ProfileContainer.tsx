@@ -4,7 +4,7 @@ import { Dispatch } from 'redux';
 
 import Profile from '../Profile/Profile';
 
-import { addPostActionCreator, changePostTextActionCreator } from '../../redux/reducers/profileReducer';
+import { addPostActionCreator, changePostTextActionCreator, setPostsActionCreator } from '../../redux/reducers/profileReducer';
 
 import {RootStateType} from '../../redux/store'
 import {PostItemType} from '../../redux/reducers/profileReducer'
@@ -14,13 +14,14 @@ type MapStateToPropsType = {
     postText: string
 }
 type MapDispatchToPropsType = {
+    setPosts: (posts: Array<PostItemType>) => void
     onChangeInput: (e: ChangeEvent<HTMLInputElement>) => void
     addNewPost: () => void
 }
 
 export type ProfileCommonType = MapStateToPropsType & MapDispatchToPropsType
 
-const mapStateToProps = (state: RootStateType) => {
+const mapStateToProps = (state: RootStateType) => { 
     return {
         postsData: state.profilePage.postsData,
         postText: state.profilePage.postText
@@ -29,6 +30,9 @@ const mapStateToProps = (state: RootStateType) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
+        setPosts: (posts: Array<PostItemType>) => {
+            dispatch(setPostsActionCreator(posts))
+        },
         onChangeInput: (e: ChangeEvent<HTMLInputElement>) => {
             dispatch(changePostTextActionCreator(e.currentTarget.value))
         },

@@ -1,0 +1,63 @@
+.users-list{
+    padding: 10px;
+}
+
+.users-list > div:last-child{
+    margin: 0;
+}
+
+.users-list-item{
+    border: solid 2px green;
+    border-radius: 5px;
+    margin-bottom: 6px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.users-list-item-description{
+    display: flex;
+}
+
+.name-and-status{
+    margin-left: 10px;
+}
+
+.name-and-status p{
+    margin: 0;
+    font-size: 20px;
+    margin-top: 13px;
+}
+
+.country-and-follow-button{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.country-and-follow-button p{
+    margin: 0;
+    font-size: 20px;
+}
+
+.follow-button{
+    width: 160px;
+    height: 30px;
+    border: solid 2px green;
+    border-radius: 5px;
+    background-color: white;
+    color: green;
+    font-size: 20px;
+}
+
+.follow-button:hover{
+    background-color: green;
+    color: white ;
+    transition: 0.3s;
+}
+
+.isFollow{
+    background-color: green;
+    color: white ;
+}
