@@ -23,9 +23,10 @@ const App: React.FC<{}> = () => {
           <Route path='/' element={<ProfileContainer/>} /> 
           <Route path='/messages' element={<MessagesContainer/>}/>
           <Route path='/users' element={<UsersContainer/>}/>
+          <Route path='/users/:userId' element={<ProfileContainer/>}/>
           <Route path='/news' element={<News/>}/>
           <Route path='/music' element={<Music/>}/>
-          <Route path='/settings' element={<Settings/>}/> v 
+          <Route path='/settings' element={<Settings/>}/> 
         </Routes>
       </div>
     </div> 

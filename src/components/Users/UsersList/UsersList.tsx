@@ -1,39 +1,47 @@
+import { NavLink } from 'react-router-dom';
 import { UserItemType } from '../../../redux/reducers/usersReducer';
 
 import './usersList.css'
 
 type UsersListPropsType = {
     usersData: Array<UserItemType>
-    onFollowOrUnfollowHandler: (id: string, isFollow: boolean) => void
+    onFollowOrUnfollowHandler: (id: number, isFollow: boolean) => void
 }
 
 const UsersList: React.FC<UsersListPropsType>= (props) => {
+
+    const nullPng: string = 'https://pimmedia.egger.com/l/decor/U780_9/s/Detail/f/881x513/8803438100510'
+
     return (
         <div className="users-list">
             {
                 props.usersData.map((u) => {
-
-                    const buttonName = u.isFollow ? 'Unfollow' : 'Follow'
-                    const buttonClass = `follow-button ${u.isFollow ? 'isFollow' : ''}`
+ 
+                    const buttonName = u.followed ? 'Unfollow' : 'Follow'
+                    const buttonClass = `follow-button ${u.followed ? 'isFollow' : ''}`
 
                     const onFollowOrUnfollowHandler = () => {
-                        props.onFollowOrUnfollowHandler(u.userId, !u.isFollow)
+                        props.onFollowOrUnfollowHandler(u.id, !u.followed)
                     }
                 
                     return (
-                        <div className="users-list-item" key={u.userId}>
-                            <div className="users-list-item-description">
-                                <img src={u.png} style={{width: '80px', height: '80px', borderRadius: '50%'}}alt="" />
-                                <div className="name-and-status">
-                                    <p><b>Name: </b>{u.name}</p>
-                                    <p><b>Status: </b>{u.status}</p>
+                        <NavLink to={`/users/${u.id}`} key={u.id} style={{textDecoration: 'none'}}>
+                        <div className="users-list-item" key={u.id}>
+                            
+                                <div className="users-list-item-description">
+                                    <img src={u.photos.small || nullPng} style={{width: '80px', height: '80px', borderRadius: '50%'}}alt="" />
+                                    <div className="name-and-status">
+                                        <p><b>Name: </b>{u.name}</p>
+                                        <p><b>Status: </b>{u.status ||  'Статуса нет' }</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="country-and-follow-button">
-                                <p>{u.location.city}</p>
-                                <button onClick={onFollowOrUnfollowHandler} className={buttonClass}>{buttonName}</button>
-                            </div>
+                                <div className="country-and-follow-button">
+                                    <p>{'Город'}</p>
+                                    <button onClick={onFollowOrUnfollowHandler} className={buttonClass}>{buttonName}</button>
+                                </div>
+                            
                         </div>
+                        </NavLink>
                     )
                 })
             }

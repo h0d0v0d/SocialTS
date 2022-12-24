@@ -1,74 +1,41 @@
-import { ChangeEvent } from 'react';
 import { connect } from 'react-redux';
-import { Dispatch } from 'redux';
 
-import Profile from '../Profile/Profile';
+import ProfileApiContainer from './ProfileApiContainer';
 
-import { addPostActionCreator, changePostTextActionCreator, setPostsActionCreator } from '../../redux/reducers/profileReducer';
+import { addPostAC, changePostTextAC, setPostsAC, setUserDataAC, UserDataType, PostItemType } from '../../redux/reducers/profileReducer';
 
 import {RootStateType} from '../../redux/store'
-import {PostItemType} from '../../redux/reducers/profileReducer'
 
 type MapStateToPropsType = {
+    userData: UserDataType
     postsData: Array<PostItemType>
     postText: string
 }
 type MapDispatchToPropsType = {
+    setUserData: (userData: UserDataType) => void
     setPosts: (posts: Array<PostItemType>) => void
-    onChangeInput: (e: ChangeEvent<HTMLInputElement>) => void
+    onChangeInput: (text: string) => void
     addNewPost: () => void
 }
 
-export type ProfileCommonType = MapStateToPropsType & MapDispatchToPropsType
+export type ProfileStoreType = MapStateToPropsType & MapDispatchToPropsType
 
 const mapStateToProps = (state: RootStateType) => { 
+    const {userData, postsData, postText} = state.profilePage
     return {
-        postsData: state.profilePage.postsData,
-        postText: state.profilePage.postText
-    }
+        userData,
+        postsData,
+        postText
+    } 
 }
 
-const mapDispatchToProps = (dispatch: Dispatch) => {
-    return {
-        setPosts: (posts: Array<PostItemType>) => {
-            dispatch(setPostsActionCreator(posts))
-        },
-        onChangeInput: (e: ChangeEvent<HTMLInputElement>) => {
-            dispatch(changePostTextActionCreator(e.currentTarget.value))
-        },
-        addNewPost: () => {
-            dispatch(addPostActionCreator())
-        }
-    }
-} 
+const mapDispatchToProps = {
+    setUserData: setUserDataAC,
+    setPosts: setPostsAC,
+    onChangeInput: changePostTextAC,
+    addNewPost: addPostAC
+}
 
-const ProfileContainer = connect(mapStateToProps, mapDispatchToProps)(Profile)
+const ProfileContainer = connect(mapStateToProps, mapDispatchToProps)(ProfileApiContainer)
 
 export default ProfileContainer;
-
-
-
-
-
-
-
-
-
-
-/* const ProfileContainer: React.FC<ProfileContainerPropsType> = (props) => {
-
-    const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-        props.dispatch(changePostTextActionCreator(e.currentTarget.value))
-    }
-
-    const addNewPost = () => {
-        props.dispatch(addPostActionCreator())
-    }
-
-    return (
-        <Profile postsData={props.profilePageData.postsData}
-                 postText={props.profilePageData.postText}
-                 onChangeInput={onChangeInput} 
-                 addNewPost={addNewPost}/>
-    );
-}; */

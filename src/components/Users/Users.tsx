@@ -1,73 +1,47 @@
-import { UsersCommonType } from '../Containers/UsersContainer';
+import { UsersCommonType } from '../Containers/UsersApiContainer';
 
 import UsersList from './UsersList/UsersList';
 
+import Loading from '../../resoursec/icons/Loading';
 import './users.css'
-import { v1 } from 'uuid';
-import { useEffect } from 'react';
-import axios from 'axios';
-
-const png: string = 'https://play-lh.googleusercontent.com/N7p1LUZQj1Zrth7Jmn6tMlogB8JYv-ozxxJC-Qwq_NIqBluDSUj0Mt8BeBphM0rX9A'
-
-const users = [
-    {
-        userId: v1(),
-        name: 'Alex',
-        status: 'Hi i am Alex',
-        location: {country: 'Belarus', city: 'Minsk'},
-        png: png,
-        isFollow: true,
-    },
-    {
-        userId: v1(),
-        name: 'Kira',
-        status: 'Maybe we will meet yesteday:)',
-        location: {country: 'Belarus', city: 'Grodno'},
-        png: png,
-        isFollow: false,
-    },
-    {
-        userId: v1(),
-        name: 'Igor',
-        status: 'hello(',
-        location: {country: 'Belarus', city: 'Penza'},
-        png: png,
-        isFollow: false,
-    },
-    {
-        userId: v1(),
-        name: 'Nika',
-        status: 'I can all',
-        location: {country: 'Belarus', city: 'Moscow'},
-        png: png,
-        isFollow: false,
-    }
-]
 
 const Users: React.FC<UsersCommonType> = (props) => {
 
-    const getData = () => {
-        axios.get('https://social-network.samuraijs.com/api/1.0/users')
-        .then((res) => {console.log(res.data.items)})
-        return users
-    }
-
-    const onFollowOrUnfollowHandler = (userId: string, isFollow: boolean) => {
+    const onFollowOrUnfollowHandler = (userId: number, isFollow: boolean) => { 
         return isFollow ? props.follow(userId) : props.unfollow(userId)
     }
 
-    useEffect(() => {
-        props.setUsers(getData())
-    }, [])
+    const pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
+    let pages = []
+    for (let i = 1; i<=pagesCount; i++) {
+        pages.push(i)
+    }
+    pages = pages.filter(el => props.currentPage - el > 3 ? false : el - props.currentPage < 4 ? true : false)
 
     return (
         <div className='users-page'>
             <div className="serch">
                 SEARCH
             </div>
-            <UsersList usersData={props.usersData}
-                       onFollowOrUnfollowHandler={onFollowOrUnfollowHandler}/>
-        </div>
+            {
+                pages.map((el, i) => {
+                    return (
+                        <span key={i} 
+                            onClick={() => {props.setCurrentPage(el)}}
+                            className={`${el === props.currentPage && 'current-page'}`}>{el}</span>
+                    )
+                } )
+            }
+            {
+                props.isFetching ? <Loading size={130}/> : 
+                <>
+                    <UsersList usersData={props.usersData}
+                            onFollowOrUnfollowHandler={onFollowOrUnfollowHandler}/>
+                    <button onClick={props.profFunc}>Доказательство</button>
+                </>
+            }
+            
+        </div> 
     );
 };
 
