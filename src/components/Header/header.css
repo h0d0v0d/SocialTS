@@ -1,12 +1,37 @@
 .app-header{
     margin-bottom: 10px;
-    height: 70px;
+    height: 100px;
     display: flex;
-    justify-content: center;
+    justify-content: end;
     align-items: center;
-    background: linear-gradient(to right, red, orange, yellow, green, cyan, blue, violet);
+    /* background: linear-gradient(to right, red, orange, yellow, green, cyan, blue, violet); */
+    background-color: green;
     color: white;
     font-size: 40px;
     font-weight: bold;
-    border-radius: 100px;
+    padding: 10px;
+}
+
+.user-login-info{
+    width: auto;
+    height: 70px;
+    font-size: 12px;
+    color: white;
+    border: solid 2px white;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 10px 25px 10px 25px;
+}
+
+.user-login-info img{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+.user-login-info h2{
+    margin: 0;
 }

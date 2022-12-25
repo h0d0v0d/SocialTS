@@ -1,7 +1,7 @@
 import PostItem from './PostItem/PostItem';
 
 import { PostItemType } from '../../redux/reducers/profileReducer'
-import { ProfileCommonType } from '../Containers/ProfileApiContainer';
+import { ProfileCommonType } from './ProfileApiContainer';
 
 import './profile.css'
 

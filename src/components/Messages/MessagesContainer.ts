@@ -2,7 +2,7 @@ import { ChangeEvent } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 
-import Messages from '../Messages/Messages';
+import Messages from './Messages';
 
 import { sendMessageActionCreator, changeMessageTextActionCreator } from '../../redux/reducers/messagesReducer';
 

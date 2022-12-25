@@ -44,7 +44,7 @@ const initialState: UsersPageType = {
     isFetching: false
 }
 
-function usersReducer(state: UsersPageType=initialState, action: ActionType) {
+function usersReducer(state: UsersPageType=initialState, action: ActionType): UsersPageType {
     switch(action.type) {
         case FOLLOW: { return { ...state, usersData: state.usersData.map(u => u.id === action.userId ? {...u, followed: true} : u)} }
         case UNFOLLOW: { return { ...state, usersData: state.usersData.map(u => u.id === action.userId ? {...u, followed: false} : u)} }

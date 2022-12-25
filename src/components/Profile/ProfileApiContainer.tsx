@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 
-import Profile from '../Profile/Profile';
+import Profile from './Profile';
 
 import { ProfileStoreType } from './ProfileContainer';
 

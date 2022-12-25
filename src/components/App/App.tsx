@@ -1,22 +1,22 @@
 import React from 'react';
 import { Routes, Route} from "react-router-dom";
 
-import Header from '../Header/Header';
 import Sitebar from '../Sitebar/Sitebar';
 import Music from '../Music/Music';
 import News from '../News/News';
 import Settings from '../Settings/Settings';
 
-import ProfileContainer from '../Containers/ProfileContainer';
-import MessagesContainer from '../Containers/MessagesContainer';
-import UsersContainer from '../Containers/UsersContainer';
+import ProfileContainer from '../Profile/ProfileContainer';
+import MessagesContainer from '../Messages/MessagesContainer';
+import UsersContainer from '../Users/UsersContainer';
+import { HeaderContainer } from '../Header/HeaderContainer';
  
 import './App.css';
 
 const App: React.FC<{}> = () => {
   return (
     <div className="App">
-      <Header/> 
+      <HeaderContainer/>
       <Sitebar/>
       <div className='main-content'> 
         <Routes>

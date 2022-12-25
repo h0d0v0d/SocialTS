@@ -1,9 +1,10 @@
 .App {
-  padding: 10px;
+  padding: 0px;
 }
 
 .main-content{
   height: auto;
+  margin: 15px;
 }
 
 

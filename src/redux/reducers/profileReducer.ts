@@ -18,7 +18,7 @@ type UserContactsType = {
 }
 export type UserDataType = {
   aboutMe: string | null,
-  contacts: UserContactsType,
+  contacts: UserContactsType, 
   fullName: string,
   lookingForAJob: boolean,
   lookingForAJobDescription: string | null,
@@ -59,7 +59,7 @@ const  initialState: ProfilePageType = {
   postText: '',
 } 
 
-function profileReducer(state : ProfilePageType = initialState, action: ActionType) {
+function profileReducer(state : ProfilePageType = initialState, action: ActionType): ProfilePageType {
     switch (action.type) {
       case SET_USER_DATA : return {...state, userData: action.userData}
       case SET_POSTS: return {...state, postsData: [...state.postsData, ...action.posts]}

@@ -50,9 +50,9 @@ const initialState: MessagesPageType = {
       }, 
     ],
     newMessageText: ''
-  }
+}
 
-function messagesReducer(state: MessagesPageType=initialState, action: ActionType) {
+function messagesReducer(state: MessagesPageType=initialState, action: ActionType): MessagesPageType {
     switch(action.type) {
         case SEND_MESSAGE:
         const newMessage: MessageItemType = {id: v1(), status: 1, src: png, messageText: state.newMessageText}
@@ -66,7 +66,7 @@ function messagesReducer(state: MessagesPageType=initialState, action: ActionTyp
         default: 
             return state
     }    
-}
+} 
  
 export default messagesReducer
 

@@ -1,4 +1,4 @@
-import { UsersCommonType } from '../Containers/UsersApiContainer';
+import { UsersCommonType } from './UsersApiContainer';
 
 import UsersList from './UsersList/UsersList';
 

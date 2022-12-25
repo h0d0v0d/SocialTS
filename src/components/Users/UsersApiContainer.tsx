@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-import Users from '../Users/Users'
+import Users from './Users'
 
-import { UsersStoreType } from '../Containers/UsersContainer';
+import { UsersStoreType } from './UsersContainer';
 
 type UsersApiType = {
     profFunc: () => void

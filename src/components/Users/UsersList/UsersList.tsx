@@ -25,23 +25,23 @@ const UsersList: React.FC<UsersListPropsType>= (props) => {
                     }
                 
                     return (
-                        <NavLink to={`/users/${u.id}`} key={u.id} style={{textDecoration: 'none'}}>
+                        
                         <div className="users-list-item" key={u.id}>
-                            
-                                <div className="users-list-item-description">
+                            <div className="users-list-item-description">
+                                <NavLink to={`/users/${u.id}`} key={u.id} style={{textDecoration: 'none', color: 'black'}}>
                                     <img src={u.photos.small || nullPng} style={{width: '80px', height: '80px', borderRadius: '50%'}}alt="" />
-                                    <div className="name-and-status">
-                                        <p><b>Name: </b>{u.name}</p>
-                                        <p><b>Status: </b>{u.status ||  'Статуса нет' }</p>
-                                    </div>
+                                </NavLink>
+                                <div className="name-and-status">
+                                    <p><b>Name: </b>{u.name}</p>
+                                    <p><b>Status: </b>{u.status ||  'Статуса нет' }</p>
                                 </div>
-                                <div className="country-and-follow-button">
-                                    <p>{'Город'}</p>
-                                    <button onClick={onFollowOrUnfollowHandler} className={buttonClass}>{buttonName}</button>
-                                </div>
-                            
+                            </div>
+                            <div className="country-and-follow-button">
+                                <p>{'Город'}</p>
+                                <button onClick={onFollowOrUnfollowHandler} className={buttonClass}>{buttonName}</button>
+                            </div>
                         </div>
-                        </NavLink>
+                        
                     )
                 })
             }

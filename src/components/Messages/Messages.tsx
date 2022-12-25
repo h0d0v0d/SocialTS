@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Dialogs from './Dialogs/Dialogs';
 import OneDialog from './OneDialog/OneDialog';
 
-import { MessagesCommonType } from '../Containers/MessagesContainer';
+import { MessagesCommonType } from './MessagesContainer';
 import { MessagesDataItemType } from '../../redux/reducers/messagesReducer';
 
 import './messages.css'
