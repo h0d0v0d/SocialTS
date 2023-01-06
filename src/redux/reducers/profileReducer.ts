@@ -31,7 +31,7 @@ export type ProfilePageType = {
   postText: string
 }
 
-const  initialState: ProfilePageType = {
+const initialState: ProfilePageType = {
   userData: {
     aboutMe: "",
     contacts: {
@@ -67,19 +67,19 @@ function profileReducer(state : ProfilePageType = initialState, action: ActionTy
         const newPostItem: PostItemType = {id: v1(), userText: state.postText}
         return {...state, postsData: [...state.postsData, newPostItem], postText: ''} 
       case CHANGE_POST_TEXT: return {...state, postText: action.text}
-      default: 
+      default:  
         return state
     }
 }
 
 export default profileReducer
 
-export const setPostsAC = (posts: Array<PostItemType>) => ({type: SET_POSTS, posts: posts})
-export const changePostTextAC = (text: string) => ({type: CHANGE_POST_TEXT, text: text})
-export const addPostAC = () => ({type: ADD_NEW_POST})
 export const setUserDataAC = (userData: UserDataType) => ({type: SET_USER_DATA, userData})
+export const setPostsAC = (posts: Array<PostItemType>) => ({type: SET_POSTS, posts: posts})
+export const addPostAC = () => ({type: ADD_NEW_POST})
+export const changePostTextAC = (text: string) => ({type: CHANGE_POST_TEXT, text: text})
 
-const SET_POSTS = 'SET_POSTS'
-const CHANGE_POST_TEXT = 'CHANGE_POST_TEXT'
-const ADD_NEW_POST = 'ADD_NEW_POST' 
 const SET_USER_DATA = 'SET_USER_DATA'
+const SET_POSTS = 'SET_POSTS'
+const ADD_NEW_POST = 'ADD_NEW_POST' 
+const CHANGE_POST_TEXT = 'CHANGE_POST_TEXT'

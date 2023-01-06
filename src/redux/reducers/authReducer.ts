@@ -1,7 +1,7 @@
 import {ActionType } from "../store"
 
-type AuthType = {
-    id: number | null
+export type AuthType = {
+    id: number
     login: string | null 
     email: string | null
     status: string | null
@@ -11,8 +11,8 @@ type AuthType = {
 }
 
 const initialState: AuthType = {
-    id: null,
-    login: null,
+    id: 26914,
+    login: null, 
     email: null,
     status: null,
     photo: '',

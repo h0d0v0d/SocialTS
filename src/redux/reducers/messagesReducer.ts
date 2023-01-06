@@ -50,14 +50,14 @@ const initialState: MessagesPageType = {
       }, 
     ],
     newMessageText: ''
-}
+} 
 
 function messagesReducer(state: MessagesPageType=initialState, action: ActionType): MessagesPageType {
     switch(action.type) {
         case SEND_MESSAGE:
-        const newMessage: MessageItemType = {id: v1(), status: 1, src: png, messageText: state.newMessageText}
+        const newMessageItem: MessageItemType = {id: v1(), status: 1, src: png, messageText: state.newMessageText}
         return {
-          messagesData: state.messagesData.map(el => el.id === action.id ? {...el, message: [ ...el.message, newMessage ]} : el),
+          messagesData: state.messagesData.map(el => el.id === action.id ? {...el, message: [ ...el.message, newMessageItem ]} : el),
           newMessageText: ''
         }
 

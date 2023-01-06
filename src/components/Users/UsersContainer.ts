@@ -4,50 +4,61 @@ import UsersApiContainer from './UsersApiContainer';
 
 import { setUsersAC, 
          followAC, 
-         unfFollowAC, 
+         unFollowAC, 
          setCurrentPageAC, 
          setTotalUsersCountAC, 
-         toogleIsFetchingAC } from '../../redux/reducers/usersReducer';
+         toogleIsFetchingAC, 
+         toogleFollowingIsFetchingOnAC,
+         toogleFollowingIsFetchingOffAC,
+         getUsersTC} from '../../redux/reducers/usersReducer';
 
 import { RootStateType} from '../../redux/store';
 import { UserItemType } from '../../redux/reducers/usersReducer'
 
 type MapStateToPropsType = {
-    usersData: Array<UserItemType>
+    usersData: UserItemType[]
     pageSize: number,
     totalUsersCount: number,
     currentPage: number,
-    isFetching: boolean 
+    isFetching: boolean,
+    isFetchingFollowingUsers: number[]
 }
 type MapDispatchToPropsType = {
-    setUsers: (users: Array<UserItemType>) => void
+    setUsers: (users: UserItemType[]) => void
     follow: (userId: number) => void
     unfollow: (userId: number) => void
     setCurrentPage: (newCurrentPage: number) => void
-    setTotalUsersCount: (newTotalUsersCount: number) => void
+    setTotalUsersCount: (newTotalUsersCount: number) => void 
     toogleIsFetching: (isFetching: boolean) => void
+    toogleFollowingIsFetchingOn: (followinfIsFecthingUserId: number) => void
+    toogleFollowingIsFetchingOff: (followinfIsFecthingUserId: number) => void
+    getUsers: (currentPage: number) => any
 } 
 
 export type UsersStoreType = MapStateToPropsType & MapDispatchToPropsType
  
 const mapStateToProps = (state: RootStateType) => {
-    const {usersData, pageSize, totalUsersCount, currentPage, isFetching} = state.usersPage
+    const {usersData, pageSize, totalUsersCount, currentPage, isFetching, isFetchingFollowingUsers} = state.usersPage
     return { 
         usersData,
         pageSize,
         totalUsersCount,
         currentPage,
-        isFetching
+        isFetching,
+        isFetchingFollowingUsers
     }
 }
 
 const mapDispatchToProps = {
     setUsers: setUsersAC, 
     follow: followAC,
-    unfollow: unfFollowAC,
+    unfollow: unFollowAC,
     setCurrentPage: setCurrentPageAC,
-    setTotalUsersCount: setTotalUsersCountAC,
-    toogleIsFetching: toogleIsFetchingAC
+    setTotalUsersCount: setTotalUsersCountAC, 
+    toogleIsFetching: toogleIsFetchingAC,
+    toogleFollowingIsFetchingOn: toogleFollowingIsFetchingOnAC,
+    toogleFollowingIsFetchingOff: toogleFollowingIsFetchingOffAC,
+    getUsers: getUsersTC
 }
 
 const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersApiContainer)

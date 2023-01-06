@@ -5,6 +5,7 @@ import './usersList.css'
 
 type UsersListPropsType = {
     usersData: Array<UserItemType>
+    isFetchingFollowingUsers: number[] 
     onFollowOrUnfollowHandler: (id: number, isFollow: boolean) => void
 }
 
@@ -18,10 +19,10 @@ const UsersList: React.FC<UsersListPropsType>= (props) => {
                 props.usersData.map((u) => {
  
                     const buttonName = u.followed ? 'Unfollow' : 'Follow'
-                    const buttonClass = `follow-button ${u.followed ? 'isFollow' : ''}`
+                    const buttonClass = `follow-button ${u.followed ? 'is-follow' : ''} ${props.isFetchingFollowingUsers.find(el => el === u.id) ? 'is-following-fetching' : ''}`
 
                     const onFollowOrUnfollowHandler = () => {
-                        props.onFollowOrUnfollowHandler(u.id, !u.followed)
+                        props.onFollowOrUnfollowHandler(u.id, u.followed)
                     }
                 
                     return (
@@ -38,10 +39,9 @@ const UsersList: React.FC<UsersListPropsType>= (props) => {
                             </div>
                             <div className="country-and-follow-button">
                                 <p>{'Город'}</p>
-                                <button onClick={onFollowOrUnfollowHandler} className={buttonClass}>{buttonName}</button>
+                                <button onClick={onFollowOrUnfollowHandler} className={buttonClass} disabled={props.isFetchingFollowingUsers.some(id => id === u.id)}>{buttonName}</button>
                             </div>
                         </div>
-                        
                     )
                 })
             }
