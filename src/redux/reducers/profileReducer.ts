@@ -1,6 +1,7 @@
+import { Dispatch } from "redux"
 import { v1 } from "uuid"
 
-import {ActionType} from "../store"
+import { getProfileUserData } from "../../api/api"
 
 export type PostItemType = {
   id: string, 
@@ -59,27 +60,45 @@ const initialState: ProfilePageType = {
   postText: '',
 } 
 
-function profileReducer(state : ProfilePageType = initialState, action: ActionType): ProfilePageType {
+function profileReducer(state : ProfilePageType = initialState, action: ProfileReducerActionType): ProfilePageType {
     switch (action.type) {
       case SET_USER_DATA : return {...state, userData: action.userData}
       case SET_POSTS: return {...state, postsData: [...state.postsData, ...action.posts]}
-      case ADD_NEW_POST: 
+      case ADD_POST: 
         const newPostItem: PostItemType = {id: v1(), userText: state.postText}
         return {...state, postsData: [...state.postsData, newPostItem], postText: ''} 
       case CHANGE_POST_TEXT: return {...state, postText: action.text}
-      default:  
-        return state
+      default: return state
     }
 }
 
 export default profileReducer
 
-export const setUserDataAC = (userData: UserDataType) => ({type: SET_USER_DATA, userData})
-export const setPostsAC = (posts: Array<PostItemType>) => ({type: SET_POSTS, posts: posts})
-export const addPostAC = () => ({type: ADD_NEW_POST})
-export const changePostTextAC = (text: string) => ({type: CHANGE_POST_TEXT, text: text})
 
+type ProfileReducerActionType = SetUserDataType | SetPostsType | AddPostType | ChangePostTextType
+
+export const setUserDataAC = (userData: UserDataType): SetUserDataType => ({type: SET_USER_DATA, userData})
 const SET_USER_DATA = 'SET_USER_DATA'
+type SetUserDataType = {type: 'SET_USER_DATA', userData: UserDataType}
+
+export const setPostsAC = (posts: PostItemType[]): SetPostsType => ({type: SET_POSTS, posts})
 const SET_POSTS = 'SET_POSTS'
-const ADD_NEW_POST = 'ADD_NEW_POST' 
+type SetPostsType = {type: 'SET_POSTS', posts: PostItemType[]}
+
+export const addPostAC = (): AddPostType => ({type: ADD_POST})
+const ADD_POST = 'ADD_POST' 
+type AddPostType = {type: 'ADD_POST'}
+
+export const changePostTextAC = (text: string): ChangePostTextType => ({type: CHANGE_POST_TEXT, text})
 const CHANGE_POST_TEXT = 'CHANGE_POST_TEXT'
+type ChangePostTextType = {type: 'CHANGE_POST_TEXT', text: string}
+
+export const getProfileUserDataTc = (id: number) => (dispatch: Dispatch) => {
+  getProfileUserData(id)
+  .then((res) => {
+    dispatch(setUserDataAC(res.data))
+  })
+} 
+
+
+

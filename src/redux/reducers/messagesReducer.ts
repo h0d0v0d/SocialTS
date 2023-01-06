@@ -1,7 +1,5 @@
 import { v1 } from "uuid"
 
-import {ActionType } from "../store"
-
 const png: string = 'https://play-lh.googleusercontent.com/N7p1LUZQj1Zrth7Jmn6tMlogB8JYv-ozxxJC-Qwq_NIqBluDSUj0Mt8BeBphM0rX9A'
 
 export type MessageItemType = {
@@ -52,7 +50,7 @@ const initialState: MessagesPageType = {
     newMessageText: ''
 } 
 
-function messagesReducer(state: MessagesPageType=initialState, action: ActionType): MessagesPageType {
+function messagesReducer(state: MessagesPageType=initialState, action: messagesReducerActionType): MessagesPageType {
     switch(action.type) {
         case SEND_MESSAGE:
         const newMessageItem: MessageItemType = {id: v1(), status: 1, src: png, messageText: state.newMessageText}
@@ -60,21 +58,24 @@ function messagesReducer(state: MessagesPageType=initialState, action: ActionTyp
           messagesData: state.messagesData.map(el => el.id === action.id ? {...el, message: [ ...el.message, newMessageItem ]} : el),
           newMessageText: ''
         }
-
-        case CHANGE_NEW_MESSAGE_TEXT:
-            return { ...state, newMessageText: action.text } 
-        default: 
-            return state
+        case CHANGE_NEW_MESSAGE_TEXT: return { ...state, newMessageText: action.text } 
+        default: return state
     }    
 } 
  
 export default messagesReducer
 
-export const CHANGE_NEW_MESSAGE_TEXT = 'CHANGE_NEW_MESSAGE_TEXT'
-export const SEND_MESSAGE = 'SEND_MESSAGE'
+type messagesReducerActionType = SendMessageType | ChangeMessageTextType
 
-export const changeMessageTextActionCreator = (text: string) => {return {type: CHANGE_NEW_MESSAGE_TEXT, text: text}}
-export const sendMessageActionCreator = (id: string) => {return {type: SEND_MESSAGE, id: id}}
+export const sendMessageAC = (id: string): SendMessageType => {return {type: SEND_MESSAGE, id}}
+export const SEND_MESSAGE = 'SEND_MESSAGE'
+type SendMessageType = {type: 'SEND_MESSAGE', id: string}
+
+export const changeMessageTextAC = (text: string): ChangeMessageTextType => {return {type: CHANGE_NEW_MESSAGE_TEXT, text}}
+export const CHANGE_NEW_MESSAGE_TEXT = 'CHANGE_NEW_MESSAGE_TEXT'
+type ChangeMessageTextType = {type: 'CHANGE_NEW_MESSAGE_TEXT', text: string}
+
+
 
 
 

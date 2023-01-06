@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 import ProfileApiContainer from './ProfileApiContainer';
 
-import { addPostAC, changePostTextAC, setPostsAC, setUserDataAC, UserDataType, PostItemType } from '../../redux/reducers/profileReducer';
+import { addPostAC, changePostTextAC, setPostsAC, setUserDataAC, UserDataType, PostItemType, getProfileUserDataTc } from '../../redux/reducers/profileReducer';
 
 import {RootStateType} from '../../redux/store'
 
@@ -12,10 +12,10 @@ type MapStateToPropsType = {
     postText: string
 }
 type MapDispatchToPropsType = {
-    setUserData: (userData: UserDataType) => void
     setPosts: (posts: Array<PostItemType>) => void
     onChangeInput: (text: string) => void
     addNewPost: () => void
+    getProfileUserData: (id: number) => void
 }
 
 export type ProfileStoreType = MapStateToPropsType & MapDispatchToPropsType
@@ -30,10 +30,10 @@ const mapStateToProps = (state: RootStateType) => {
 }
 
 const mapDispatchToProps = {
-    setUserData: setUserDataAC,
     setPosts: setPostsAC,
     onChangeInput: changePostTextAC,
-    addNewPost: addPostAC
+    addNewPost: addPostAC,
+    getProfileUserData: getProfileUserDataTc
 }
 
 const ProfileContainer = connect(mapStateToProps, mapDispatchToProps)(ProfileApiContainer)

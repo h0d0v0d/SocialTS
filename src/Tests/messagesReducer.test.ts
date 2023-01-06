@@ -1,4 +1,4 @@
-import messagesReducer, { MessagesPageType, sendMessageActionCreator, changeMessageTextActionCreator } from "../redux/reducers/messagesReducer";
+import messagesReducer, { MessagesPageType, sendMessageAC, changeMessageTextAC } from "../redux/reducers/messagesReducer";
 
 const png: string = 'https://play-lh.googleusercontent.com/N7p1LUZQj1Zrth7Jmn6tMlogB8JYv-ozxxJC-Qwq_NIqBluDSUj0Mt8BeBphM0rX9A'
 const initialState: MessagesPageType = {
@@ -36,7 +36,7 @@ const initialState: MessagesPageType = {
 test('messagesReducer send message', () => {
     const frienId = '3'
 
-    const res = messagesReducer(initialState, sendMessageActionCreator(frienId))
+    const res = messagesReducer(initialState, sendMessageAC(frienId))
 
     expect(res.newMessageText).toBe('')
     expect(res.messagesData.find(el => el.id === frienId)?.message[2].messageText).toBe('new mes form...')
@@ -45,7 +45,7 @@ test('messagesReducer send message', () => {
 test('messagesReducer change new message text', () => {
     const newMessageText = 'new message text number two'
 
-    const res = messagesReducer(initialState, changeMessageTextActionCreator(newMessageText))
+    const res = messagesReducer(initialState, changeMessageTextAC(newMessageText))
 
     expect(res.newMessageText).toBe(newMessageText)
 })

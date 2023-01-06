@@ -20,13 +20,12 @@ const UsersList: React.FC<UsersListPropsType>= (props) => {
  
                     const buttonName = u.followed ? 'Unfollow' : 'Follow'
                     const buttonClass = `follow-button ${u.followed ? 'is-follow' : ''} ${props.isFetchingFollowingUsers.find(el => el === u.id) ? 'is-following-fetching' : ''}`
-
+                    const buttonDisabled = props.isFetchingFollowingUsers.some(id => id === u.id)
                     const onFollowOrUnfollowHandler = () => {
                         props.onFollowOrUnfollowHandler(u.id, u.followed)
                     }
                 
                     return (
-                        
                         <div className="users-list-item" key={u.id}>
                             <div className="users-list-item-description">
                                 <NavLink to={`/users/${u.id}`} key={u.id} style={{textDecoration: 'none', color: 'black'}}>
@@ -39,7 +38,7 @@ const UsersList: React.FC<UsersListPropsType>= (props) => {
                             </div>
                             <div className="country-and-follow-button">
                                 <p>{'Город'}</p>
-                                <button onClick={onFollowOrUnfollowHandler} className={buttonClass} disabled={props.isFetchingFollowingUsers.some(id => id === u.id)}>{buttonName}</button>
+                                <button onClick={onFollowOrUnfollowHandler} className={buttonClass} disabled={buttonDisabled}>{buttonName}</button>
                             </div>
                         </div>
                     )

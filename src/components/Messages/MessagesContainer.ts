@@ -4,7 +4,7 @@ import { Dispatch } from 'redux';
 
 import Messages from './Messages';
 
-import { sendMessageActionCreator, changeMessageTextActionCreator } from '../../redux/reducers/messagesReducer';
+import { sendMessageAC, changeMessageTextAC } from '../../redux/reducers/messagesReducer';
 
 import { RootStateType} from '../../redux/store';
 import { MessagesDataItemType } from '../../redux/reducers/messagesReducer'
@@ -31,10 +31,10 @@ const mapStateToProps = (state: RootStateType) => {
 const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
         onChangeMessageText: (e: ChangeEvent<HTMLInputElement>) => {
-            dispatch(changeMessageTextActionCreator(e.currentTarget.value)) 
+            dispatch(changeMessageTextAC(e.currentTarget.value)) 
         },
         onSendMessage: (activeIdDialog: string) => {
-            dispatch(sendMessageActionCreator(activeIdDialog))  
+            dispatch(sendMessageAC(activeIdDialog))  
         }
     }
 }

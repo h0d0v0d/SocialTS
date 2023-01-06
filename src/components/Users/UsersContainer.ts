@@ -2,15 +2,7 @@ import { connect } from 'react-redux';
 
 import UsersApiContainer from './UsersApiContainer';
 
-import { setUsersAC, 
-         followAC, 
-         unFollowAC, 
-         setCurrentPageAC, 
-         setTotalUsersCountAC, 
-         toogleIsFetchingAC, 
-         toogleFollowingIsFetchingOnAC,
-         toogleFollowingIsFetchingOffAC,
-         getUsersTC} from '../../redux/reducers/usersReducer';
+import { setCurrentPageAC, getUsersTC, onFollowOrUnfollowTC} from '../../redux/reducers/usersReducer';
 
 import { RootStateType} from '../../redux/store';
 import { UserItemType } from '../../redux/reducers/usersReducer'
@@ -24,15 +16,9 @@ type MapStateToPropsType = {
     isFetchingFollowingUsers: number[]
 }
 type MapDispatchToPropsType = {
-    setUsers: (users: UserItemType[]) => void
-    follow: (userId: number) => void
-    unfollow: (userId: number) => void
     setCurrentPage: (newCurrentPage: number) => void
-    setTotalUsersCount: (newTotalUsersCount: number) => void 
-    toogleIsFetching: (isFetching: boolean) => void
-    toogleFollowingIsFetchingOn: (followinfIsFecthingUserId: number) => void
-    toogleFollowingIsFetchingOff: (followinfIsFecthingUserId: number) => void
-    getUsers: (currentPage: number) => any
+    getUsers: (currentPage: number) => void
+    onFollowOrUnfollow: (userId: number, isFollow: boolean) => void
 } 
 
 export type UsersStoreType = MapStateToPropsType & MapDispatchToPropsType
@@ -50,15 +36,9 @@ const mapStateToProps = (state: RootStateType) => {
 }
 
 const mapDispatchToProps = {
-    setUsers: setUsersAC, 
-    follow: followAC,
-    unfollow: unFollowAC,
     setCurrentPage: setCurrentPageAC,
-    setTotalUsersCount: setTotalUsersCountAC, 
-    toogleIsFetching: toogleIsFetchingAC,
-    toogleFollowingIsFetchingOn: toogleFollowingIsFetchingOnAC,
-    toogleFollowingIsFetchingOff: toogleFollowingIsFetchingOffAC,
-    getUsers: getUsersTC
+    getUsers: getUsersTC,
+    onFollowOrUnfollow: onFollowOrUnfollowTC
 }
 
 const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersApiContainer)

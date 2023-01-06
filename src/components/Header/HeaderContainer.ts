@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
-import { setAuthUserDataAC, setProfileUserDataAC } from "../../redux/reducers/authReducer";
+import { getAuthUserDataTC, getProfileUserDataTC, setAuthUserDataAC, setProfileUserDataAC } from "../../redux/reducers/authReducer";
 import { RootStateType } from "../../redux/store";
 
 import HeaderApiContainer from "./HeaderApiContainer";
@@ -15,8 +15,8 @@ type mapStateToPropsType = {
     isFetching: boolean
 }
 type mapDispatchToPropsType = {
-    setUserData: (id: number, email: string, login: string) => void
-    setProfileUserData: (status: string, photo: string) => void
+    getAuthUserData: () => void
+    getProfileUserData: (id: number) => void
 }
 export type AuthStoreType = mapStateToPropsType & mapDispatchToPropsType
 
@@ -33,15 +33,9 @@ const mapStateToProps = (state: RootStateType): mapStateToPropsType => {
     }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
-    return {
-        setUserData: function(id: number, email: string, login: string) {
-            dispatch(setAuthUserDataAC(id, email, login))
-        },
-        setProfileUserData: function(status: string, photo: string) {
-            dispatch(setProfileUserDataAC(status, photo))
-        }
-    }
+const mapDispatchToProps = {
+    getAuthUserData: getAuthUserDataTC,
+    getProfileUserData: getProfileUserDataTC
 }
 
 export const HeaderContainer = connect(mapStateToProps, mapDispatchToProps)(HeaderApiContainer)

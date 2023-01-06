@@ -3,9 +3,9 @@ import React, { useEffect } from 'react';
 import Users from './Users'
 
 import { UsersStoreType } from './UsersContainer';
-import { getUsersAPI } from '../../api/api';
 
 type UsersApiType = {
+    onFollowOrUnfollowHandler: (userId: number, isFollow: boolean) => void
 }
 export type UsersCommonType = UsersStoreType & UsersApiType
 
@@ -15,12 +15,16 @@ const UsersApiContainer = (props: UsersStoreType) => {
         props.getUsers(props.currentPage)
     }
 
+    const onFollowOrUnfollowHandler = (userId: number, isFollow: boolean) => { 
+        props.onFollowOrUnfollow(userId, isFollow)
+    }
+
     useEffect(() => {
         getData()
     }, [props.currentPage])
 
     return (
-        <Users {...props}/>
+        <Users {...props} onFollowOrUnfollowHandler={onFollowOrUnfollowHandler}/>
     );
 };
 
