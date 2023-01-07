@@ -1,10 +1,12 @@
-import authReducer, { AuthType, setAuthUserDataAC, setProfileUserDataAC } from "../redux/reducers/authReducer";
+import authReducer, { AuthType, actions } from "../redux/reducers/authReducer";
+
+const {setAuthUserDataAC, setProfileUserDataAC} = actions
 
 const initialState: AuthType = {
     id: 26914,
-    login: null, 
-    email: null,
-    status: null,
+    login: '', 
+    email: '',
+    status: '',
     photo: '',
     isAuth: false,
     isFetching: false,

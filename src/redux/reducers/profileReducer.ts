@@ -18,7 +18,7 @@ type UserContactsType = {
   mainLink: string | null,
 }
 export type UserDataType = {
-  aboutMe: string | null,
+  aboutMe: string,
   contacts: UserContactsType, 
   fullName: string,
   lookingForAJob: boolean,
@@ -26,15 +26,11 @@ export type UserDataType = {
   photos: {small: string | null, large: string | null},
   userId: number | string
 }
-export type ProfilePageType = {
-  userData: UserDataType, 
-  postsData: Array<PostItemType>
-  postText: string
-}
+export type ProfilePageType = typeof initialState
 
-const initialState: ProfilePageType = {
+const initialState = {
   userData: {
-    aboutMe: "",
+    aboutMe: "Это про меня",
     contacts: {
         facebook: "facebook.com", 
         website: null, 
@@ -52,51 +48,45 @@ const initialState: ProfilePageType = {
         large: null
     },
     userId: 1
-  },
+  } as UserDataType,
   postsData: [
     {id: v1(), userText: 'Это мой первый пост'},
     {id: v1(), userText: 'Это мой второй пост'},
-  ],
+  ] as PostItemType[],
   postText: '',
+  changedStatus: false,
 } 
 
 function profileReducer(state : ProfilePageType = initialState, action: ProfileReducerActionType): ProfilePageType {
     switch (action.type) {
-      case SET_USER_DATA : return {...state, userData: action.userData}
-      case SET_POSTS: return {...state, postsData: [...state.postsData, ...action.posts]}
-      case ADD_POST: 
+      case 'SET_USER_DATA' : return {...state, userData: action.userData}
+      case 'SET_POSTS': return {...state, postsData: [...state.postsData, ...action.posts]}
+      case 'ADD_POST': 
         const newPostItem: PostItemType = {id: v1(), userText: state.postText}
-        return {...state, postsData: [...state.postsData, newPostItem], postText: ''} 
-      case CHANGE_POST_TEXT: return {...state, postText: action.text}
+        return {...state, postsData: [...state.postsData, newPostItem], postText: ''}  
+      case 'CHANGE_POST_TEXT': return {...state, postText: action.text}
+      case 'CHANGED_STATUS': return {...state, changedStatus: action.changedStatus}
       default: return state
     }
 }
 
 export default profileReducer
 
+type ProfileReducerActionType = ReturnType<PropertiesType<typeof actions>> 
+type PropertiesType<T> = T extends {[key: string]: infer U} ? U : never
 
-type ProfileReducerActionType = SetUserDataType | SetPostsType | AddPostType | ChangePostTextType
-
-export const setUserDataAC = (userData: UserDataType): SetUserDataType => ({type: SET_USER_DATA, userData})
-const SET_USER_DATA = 'SET_USER_DATA'
-type SetUserDataType = {type: 'SET_USER_DATA', userData: UserDataType}
-
-export const setPostsAC = (posts: PostItemType[]): SetPostsType => ({type: SET_POSTS, posts})
-const SET_POSTS = 'SET_POSTS'
-type SetPostsType = {type: 'SET_POSTS', posts: PostItemType[]}
-
-export const addPostAC = (): AddPostType => ({type: ADD_POST})
-const ADD_POST = 'ADD_POST' 
-type AddPostType = {type: 'ADD_POST'}
-
-export const changePostTextAC = (text: string): ChangePostTextType => ({type: CHANGE_POST_TEXT, text})
-const CHANGE_POST_TEXT = 'CHANGE_POST_TEXT'
-type ChangePostTextType = {type: 'CHANGE_POST_TEXT', text: string}
+export const actions = {
+  setUserDataAC: (userData: UserDataType) => ({type: 'SET_USER_DATA', userData} as const),
+  setPostsAC: (posts: PostItemType[]) => ({type: 'SET_POSTS', posts} as const),
+  addPostAC: () => ({type: 'ADD_POST'} as const),
+  changePostTextAC: (text: string) => ({type: 'CHANGE_POST_TEXT', text} as const),
+  toogleChangedStatusAC: (changedStatus: boolean) => ({type: 'CHANGED_STATUS', changedStatus} as const)
+}
 
 export const getProfileUserDataTc = (id: number) => (dispatch: Dispatch) => {
   getProfileUserData(id)
   .then((res) => {
-    dispatch(setUserDataAC(res.data))
+    dispatch(actions.setUserDataAC(res.data))
   })
 } 
 

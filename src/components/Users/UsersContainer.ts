@@ -2,10 +2,12 @@ import { connect } from 'react-redux';
 
 import UsersApiContainer from './UsersApiContainer';
 
-import { setCurrentPageAC, getUsersTC, onFollowOrUnfollowTC} from '../../redux/reducers/usersReducer';
+import { actions, getUsersTC, onFollowOrUnfollowTC } from '../../redux/reducers/usersReducer';
 
 import { RootStateType} from '../../redux/store';
 import { UserItemType } from '../../redux/reducers/usersReducer'
+
+
 
 type MapStateToPropsType = {
     usersData: UserItemType[]
@@ -36,7 +38,7 @@ const mapStateToProps = (state: RootStateType) => {
 }
 
 const mapDispatchToProps = {
-    setCurrentPage: setCurrentPageAC,
+    setCurrentPage: actions.setCurrentPageAC,
     getUsers: getUsersTC,
     onFollowOrUnfollow: onFollowOrUnfollowTC
 }

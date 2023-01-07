@@ -10,6 +10,7 @@ import ProfileContainer from '../Profile/ProfileContainer';
 import MessagesContainer from '../Messages/MessagesContainer';
 import UsersContainer from '../Users/UsersContainer';
 import { HeaderContainer } from '../Header/HeaderContainer';
+import { LoginPageContainer } from '../Login/LoginPageContainer';
  
 import './App.css';
 
@@ -27,6 +28,7 @@ const App: React.FC<{}> = () => {
           <Route path='/news' element={<News/>}/>
           <Route path='/music' element={<Music/>}/>
           <Route path='/settings' element={<Settings/>}/> 
+          <Route path='/login' element={<LoginPageContainer/>}/> 
         </Routes>
       </div>
     </div> 

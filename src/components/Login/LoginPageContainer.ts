@@ -1,9 +1,8 @@
 import { connect } from "react-redux";
-
-import { getAuthUserDataTC, getProfileUserDataTC} from "../../redux/reducers/authReducer";
+import { getAuthUserDataTC, getProfileUserDataTC } from "../../redux/reducers/authReducer";
 import { RootStateType } from "../../redux/store";
 
-import HeaderApiContainer from "./HeaderApiContainer";
+import LoginPageApiContainer from "./LoginPageApiContainer";
 
 type mapStateToPropsType = {
     id: number
@@ -14,9 +13,11 @@ type mapStateToPropsType = {
     isAuth: boolean
     isFetching: boolean
 }
-type mapDispatchToPropsType = {}
-
-export type HeaderStoreType = mapStateToPropsType & mapDispatchToPropsType
+type mapDispatchToPropsType = {
+    getAuthUserData: () => void
+    getProfileUserData: (id: number) => void
+}
+export type LoginPageStoreType = mapStateToPropsType & mapDispatchToPropsType
 
 const mapStateToProps = (state: RootStateType): mapStateToPropsType => {
     const {id, login, email, isFetching, isAuth, photo, status} = state.auth
@@ -31,6 +32,9 @@ const mapStateToProps = (state: RootStateType): mapStateToPropsType => {
     }
 }
 
-const mapDispatchToProps = {}
+const mapDispatchToProps = {
+    getAuthUserData: getAuthUserDataTC,
+    getProfileUserData: getProfileUserDataTC
+}
 
-export const HeaderContainer = connect(mapStateToProps, mapDispatchToProps)(HeaderApiContainer)
+export const LoginPageContainer = connect(mapStateToProps, mapDispatchToProps)(LoginPageApiContainer)

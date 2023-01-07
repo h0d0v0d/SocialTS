@@ -1,10 +1,14 @@
 import { connect } from 'react-redux';
+import { compose } from 'redux';
 
 import ProfileApiContainer from './ProfileApiContainer';
 
-import { addPostAC, changePostTextAC, setPostsAC, setUserDataAC, UserDataType, PostItemType, getProfileUserDataTc } from '../../redux/reducers/profileReducer';
+import { actions, UserDataType, PostItemType, getProfileUserDataTc } from '../../redux/reducers/profileReducer';
 
 import {RootStateType} from '../../redux/store'
+import withRedirect from '../HOC/withRedirect';
+
+const {addPostAC, changePostTextAC, setPostsAC} = actions
 
 type MapStateToPropsType = {
     userData: UserDataType
@@ -13,7 +17,7 @@ type MapStateToPropsType = {
 }
 type MapDispatchToPropsType = {
     setPosts: (posts: Array<PostItemType>) => void
-    onChangeInput: (text: string) => void
+    onChangeInput: (text: string) => void 
     addNewPost: () => void
     getProfileUserData: (id: number) => void
 }
@@ -21,11 +25,12 @@ type MapDispatchToPropsType = {
 export type ProfileStoreType = MapStateToPropsType & MapDispatchToPropsType
 
 const mapStateToProps = (state: RootStateType) => { 
-    const {userData, postsData, postText} = state.profilePage
+    const {userData, postsData, postText, changedStatus} = state.profilePage
     return {
         userData,
         postsData,
-        postText
+        postText,
+        changedStatus
     } 
 }
 
@@ -33,9 +38,11 @@ const mapDispatchToProps = {
     setPosts: setPostsAC,
     onChangeInput: changePostTextAC,
     addNewPost: addPostAC,
-    getProfileUserData: getProfileUserDataTc
+    getProfileUserData: getProfileUserDataTc,
+    toogleChangedStatus: actions.toogleChangedStatusAC
 }
 
-const ProfileContainer = connect(mapStateToProps, mapDispatchToProps)(ProfileApiContainer)
-
-export default ProfileContainer;
+export default compose(
+    connect(mapStateToProps, mapDispatchToProps),
+    withRedirect)
+    (ProfileApiContainer);

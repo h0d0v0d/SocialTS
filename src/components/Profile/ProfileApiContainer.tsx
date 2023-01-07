@@ -17,7 +17,7 @@ const ProfileApiContainer: React.FC<ProfileStoreType> = (props) => {
         let id: number = location.pathname !== '/' ? Number(params.userId) : 26914
         props.getProfileUserData(id)
     }, [location.key]) 
-
+ 
     return (
         <>
             <Profile {...props}/>

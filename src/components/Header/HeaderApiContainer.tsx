@@ -1,26 +1,14 @@
-import { useEffect } from "react";
-
 import Header from "./Header";
 
-import { AuthStoreType } from "./HeaderContainer";
+import { HeaderStoreType } from "./HeaderContainer";
 
-type AuthApiType = {
-    setting: () => void
-}
-export type HeaderCommonType = AuthStoreType & AuthApiType
+type HeaderApiType = {}
+export type HeaderCommonType = HeaderStoreType & HeaderApiType
 
-const HeaderApiContainer: React.FC<AuthStoreType> = (props) => {
-
-    const setting = () => { 
-        props.getAuthUserData()
-    } 
-
-    useEffect(() => {
-        props.getProfileUserData(props.id)
-    }, [props.id])
+const HeaderApiContainer: React.FC<HeaderStoreType> = (props) => {
 
     return (
-        <Header {...props} setting={setting}/>
+        <Header {...props}/>
     );
 };
 

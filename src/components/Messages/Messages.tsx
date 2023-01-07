@@ -8,6 +8,7 @@ import { MessagesDataItemType } from '../../redux/reducers/messagesReducer';
 
 import './messages.css'
 
+
 const Messages: React.FC<MessagesCommonType> = (props) => { 
 
     const [activeIdDialog, setActiveIdDialog] = useState<string>(props.messagesData[0].id) 
@@ -28,7 +29,7 @@ const Messages: React.FC<MessagesCommonType> = (props) => {
     useEffect(() => {
         changeActiveDialogData()
     }, [props.messagesData, activeIdDialog])
-    
+
     return (
         <div className='messages'> 
             <Dialogs messagesData={props.messagesData} 

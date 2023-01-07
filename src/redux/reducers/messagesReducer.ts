@@ -9,16 +9,13 @@ export type MessageItemType = {
   messageText: string
 }
 export type MessagesDataItemType = {
-  id: string,
+  id: string ,
   name: string,
   message: Array<MessageItemType>
 }
-export type MessagesPageType = {
-  messagesData: Array<MessagesDataItemType>, 
-  newMessageText:string
-}
+export type MessagesPageType = typeof initialState
 
-const initialState: MessagesPageType = {
+const initialState = {
     messagesData: [
       {
         id: v1(), 
@@ -46,34 +43,32 @@ const initialState: MessagesPageType = {
           {id: v1(), status: 0, src: png, messageText: '53.957870, 27.560187'}
         ]
       }, 
-    ],
+    ] as MessagesDataItemType[],
     newMessageText: ''
 } 
 
 function messagesReducer(state: MessagesPageType=initialState, action: messagesReducerActionType): MessagesPageType {
     switch(action.type) {
-        case SEND_MESSAGE:
+        case 'SEND_MESSAGE':
         const newMessageItem: MessageItemType = {id: v1(), status: 1, src: png, messageText: state.newMessageText}
         return {
           messagesData: state.messagesData.map(el => el.id === action.id ? {...el, message: [ ...el.message, newMessageItem ]} : el),
           newMessageText: ''
         }
-        case CHANGE_NEW_MESSAGE_TEXT: return { ...state, newMessageText: action.text } 
+        case 'CHANGE_NEW_MESSAGE_TEXT': return { ...state, newMessageText: action.text } 
         default: return state
     }    
 } 
  
 export default messagesReducer
 
-type messagesReducerActionType = SendMessageType | ChangeMessageTextType
+type messagesReducerActionType = ReturnType<PropertiesType<typeof actions>>
+type PropertiesType<T> = T extends {[key: string]: infer U} ? U : never
 
-export const sendMessageAC = (id: string): SendMessageType => {return {type: SEND_MESSAGE, id}}
-export const SEND_MESSAGE = 'SEND_MESSAGE'
-type SendMessageType = {type: 'SEND_MESSAGE', id: string}
-
-export const changeMessageTextAC = (text: string): ChangeMessageTextType => {return {type: CHANGE_NEW_MESSAGE_TEXT, text}}
-export const CHANGE_NEW_MESSAGE_TEXT = 'CHANGE_NEW_MESSAGE_TEXT'
-type ChangeMessageTextType = {type: 'CHANGE_NEW_MESSAGE_TEXT', text: string}
+export const actions = {
+  sendMessageAC: (id: string) => ({type: 'SEND_MESSAGE', id} as const),
+  changeMessageTextAC: (text: string) => ({type: 'CHANGE_NEW_MESSAGE_TEXT', text} as const)
+}
 
 
 

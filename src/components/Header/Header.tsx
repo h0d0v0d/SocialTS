@@ -1,5 +1,6 @@
 import { HeaderCommonType } from './HeaderApiContainer';
 import './header.css'
+import { NavLink } from 'react-router-dom';
 
 const Header: React.FC<HeaderCommonType> = (props) => {
     return (
@@ -12,7 +13,7 @@ const Header: React.FC<HeaderCommonType> = (props) => {
                     <h2>{props.login}</h2>
                 </div>
                 : 
-                <button style={{color: 'white', fontSize: '22px', border: 'none', backgroundColor: 'green'}} onClick={props.setting}>Login</button>
+                <NavLink style={{color: 'white', fontSize: '22px', border: 'none', backgroundColor: 'green'}} to='/login'>Log in</NavLink>
             }
         </div>
     );

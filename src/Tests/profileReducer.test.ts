@@ -1,5 +1,6 @@
-import profileReducer, {ProfilePageType, UserDataType, setUserDataAC, PostItemType, setPostsAC, addPostAC, changePostTextAC } from "../redux/reducers/profileReducer";
+import profileReducer, {ProfilePageType, UserDataType, PostItemType, actions} from "../redux/reducers/profileReducer";
 
+const {setUserDataAC, setPostsAC, addPostAC, changePostTextAC} = actions
 const initialState: ProfilePageType = {
     userData: {
       aboutMe: "",
@@ -25,6 +26,7 @@ const initialState: ProfilePageType = {
       {id: '1', userText: 'Это мой первый пост'}
     ],
     postText: 'vrfglvnflgnvflgnv',
+    changedStatus: false
 } 
 
 test('profileReducer set user data', () => {

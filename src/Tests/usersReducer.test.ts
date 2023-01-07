@@ -1,4 +1,13 @@
-import usersReducer, {followAC, unFollowAC, setUsersAC, setCurrentPageAC, setTotalUsersCountAC, toogleIsFetchingAC, UsersPageType, UserItemType} from "../redux/reducers/usersReducer";
+import usersReducer, {actions, UsersPageType, UserItemType} from "../redux/reducers/usersReducer";
+
+const {followAC, 
+       unFollowAC, 
+       setUsersAC, 
+       setCurrentPageAC, 
+       setTotalUsersCountAC, 
+       toogleIsFetchingAC, 
+       toogleFollowingIsFetchingOnAC, 
+       toogleFollowingIsFetchingOffAC} = actions
 
 const initialState: UsersPageType = {
     usersData: [
@@ -29,7 +38,7 @@ const initialState: UsersPageType = {
     totalUsersCount: 25, 
     currentPage: 1,
     isFetching: false,
-    isFetchingFollowingUsers: []
+    isFetchingFollowingUsers: [5645]
 }
 
 test('usersReducer follow', () => {
@@ -110,5 +119,26 @@ test('usersReducer toogle isFetching', () => {
     expect(res.pageSize).toBe(5)
 }) 
 
+test('usersReducer following fetching on', () => {
+    const userId_1 = 34545
+    const userId_2 = 56453
 
+    const res = usersReducer(initialState, toogleFollowingIsFetchingOnAC(userId_1))
+    const res_2 = usersReducer(res, toogleFollowingIsFetchingOnAC(userId_2))
+
+    expect(res.isFetchingFollowingUsers.some(el => el === userId_1)).toBe(true)
+    expect(res.isFetchingFollowingUsers.length).toBe(2)
+
+    expect(res_2.isFetchingFollowingUsers.some(el => el === userId_2)).toBe(true)
+    expect(res_2.isFetchingFollowingUsers.length).toBe(3)
+}) 
+
+test('usersReducer following fetching off', () => {
+    const userId_1 = 5645
+
+    const res = usersReducer(initialState, toogleFollowingIsFetchingOffAC(userId_1))
+
+    expect(res.isFetchingFollowingUsers.some(el => el === userId_1)).toBe(false)
+    expect(res.isFetchingFollowingUsers.length).toBe(0)
+}) 
 

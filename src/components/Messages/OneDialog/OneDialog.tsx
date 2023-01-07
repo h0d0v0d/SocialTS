@@ -6,7 +6,7 @@ type OneDialogPropsType = {
     activeDialogData: MessagesDataItemType
     newMessageText: string
     onSendMessage: () => void
-    onChangeMessageText: (e: React.ChangeEvent<HTMLInputElement>) => void
+    onChangeMessageText: (text: string) => void
 }
 
 const OneDialog: React.FC<OneDialogPropsType> = (props) => {
@@ -32,7 +32,7 @@ const OneDialog: React.FC<OneDialogPropsType> = (props) => {
                     <input type="text" 
                         className='one-dialog-input' 
                         value={props.newMessageText} 
-                        onChange={props.onChangeMessageText}/>
+                        onChange={(e) => props.onChangeMessageText(e.currentTarget.value)}/>
                     <button className='one-dialog-send-button' onClick={props.onSendMessage}>Отправить</button>
                 </div>
             </div>
