@@ -14,7 +14,7 @@ const LoginPageApiContainer = (props: LoginPageStoreType) => {
     } 
 
     useEffect(() => {
-        props.getProfileUserData(props.id)
+        props.getProfileUserData(Number(props.id))
     }, [props.id])
 
     return <LoginPage {...props} setting={setting}/>

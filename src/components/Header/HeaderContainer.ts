@@ -1,12 +1,11 @@
 import { connect } from "react-redux";
 
-import { getAuthUserDataTC, getProfileUserDataTC} from "../../redux/reducers/authReducer";
 import { RootStateType } from "../../redux/store";
 
 import HeaderApiContainer from "./HeaderApiContainer";
 
 type mapStateToPropsType = {
-    id: number
+    id: number | null
     login: string | null 
     email: string | null
     photo: string 

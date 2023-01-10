@@ -2,27 +2,18 @@ import { connect } from 'react-redux';
 
 import UsersApiContainer from './UsersApiContainer';
 
-import { actions, getUsersTC, onFollowOrUnfollowTC } from '../../redux/reducers/usersReducer';
+import { actions, getUsers, onFollowOrUnfollow } from '../../redux/reducers/usersReducer';
 
 import { RootStateType} from '../../redux/store';
-import { UserItemType } from '../../redux/reducers/usersReducer'
 
+const {setCurrentPage} = actions
 
-
-type MapStateToPropsType = {
-    usersData: UserItemType[]
-    pageSize: number,
-    totalUsersCount: number,
-    currentPage: number,
-    isFetching: boolean,
-    isFetchingFollowingUsers: number[]
-}
 type MapDispatchToPropsType = {
     setCurrentPage: (newCurrentPage: number) => void
     getUsers: (currentPage: number) => void
     onFollowOrUnfollow: (userId: number, isFollow: boolean) => void
-} 
-
+}   
+type MapStateToPropsType = ReturnType<typeof mapStateToProps>
 export type UsersStoreType = MapStateToPropsType & MapDispatchToPropsType
  
 const mapStateToProps = (state: RootStateType) => {
@@ -34,13 +25,13 @@ const mapStateToProps = (state: RootStateType) => {
         currentPage,
         isFetching,
         isFetchingFollowingUsers
-    }
+    } 
 }
 
 const mapDispatchToProps = {
-    setCurrentPage: actions.setCurrentPageAC,
-    getUsers: getUsersTC,
-    onFollowOrUnfollow: onFollowOrUnfollowTC
+    setCurrentPage,
+    getUsers,
+    onFollowOrUnfollow
 }
 
 const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersApiContainer)

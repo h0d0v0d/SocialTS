@@ -3,7 +3,7 @@ import usersReducer, {actions, UsersPageType, UserItemType} from "../redux/reduc
 const {followAC, 
        unFollowAC, 
        setUsersAC, 
-       setCurrentPageAC, 
+       setCurrentPage, 
        setTotalUsersCountAC, 
        toogleIsFetchingAC, 
        toogleFollowingIsFetchingOnAC, 
@@ -92,7 +92,7 @@ test('usersReducer set users', () => {
 test('usersReducer set current page', () => {
     const newCurrentPage = 67
 
-    const res = usersReducer(initialState, setCurrentPageAC(newCurrentPage))
+    const res = usersReducer(initialState, setCurrentPage(newCurrentPage))
 
     expect(res.currentPage).toBe(newCurrentPage)
     expect(res.pageSize).toBe(5)

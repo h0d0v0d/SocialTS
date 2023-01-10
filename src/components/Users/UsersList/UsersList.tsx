@@ -18,7 +18,7 @@ const UsersList: React.FC<UsersListPropsType>= (props) => {
             {
                 props.usersData.map((u) => {
  
-                    const buttonName = u.followed ? 'Unfollow' : 'Follow'
+                    const buttonName = u.followed ? 'Unfollow' : 'Follow' 
                     const buttonClass = `follow-button ${u.followed ? 'is-follow' : ''} ${props.isFetchingFollowingUsers.find(el => el === u.id) ? 'is-following-fetching' : ''}`
                     const buttonDisabled = props.isFetchingFollowingUsers.some(id => id === u.id)
                     const onFollowOrUnfollowHandler = () => {
@@ -29,7 +29,7 @@ const UsersList: React.FC<UsersListPropsType>= (props) => {
                         <div className="users-list-item" key={u.id}>
                             <div className="users-list-item-description">
                                 <NavLink to={`/users/${u.id}`} key={u.id} style={{textDecoration: 'none', color: 'black'}}>
-                                    <img src={u.photos.small || nullPng} style={{width: '80px', height: '80px', borderRadius: '50%'}}alt="" />
+                                    <img src={u.photos.small || nullPng} style={{width: '80px', height: '80px', borderRadius: '50%'}} alt="" />
                                 </NavLink>
                                 <div className="name-and-status">
                                     <p><b>Name: </b>{u.name}</p>

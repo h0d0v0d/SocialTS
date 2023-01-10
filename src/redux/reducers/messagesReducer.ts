@@ -61,7 +61,7 @@ function messagesReducer(state: MessagesPageType=initialState, action: messagesR
 } 
  
 export default messagesReducer
-
+ 
 type messagesReducerActionType = ReturnType<PropertiesType<typeof actions>>
 type PropertiesType<T> = T extends {[key: string]: infer U} ? U : never
 

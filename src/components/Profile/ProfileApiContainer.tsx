@@ -14,12 +14,12 @@ const ProfileApiContainer: React.FC<ProfileStoreType> = (props) => {
     const location = useLocation()
     
     useEffect(() => {
-        let id: number = location.pathname !== '/' ? Number(params.userId) : 26914
+        let id: number = location.pathname !== '/' ? Number(params.userId) : props.id
         props.getProfileUserData(id)
     }, [location.key]) 
- 
+  
     return (
-        <>
+        <> 
             <Profile {...props}/>
         </>
     );

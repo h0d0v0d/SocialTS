@@ -17,7 +17,7 @@ const initialState = {
     currentPage: 1,
     isFetching: false,
     isFetchingFollowingUsers: [] as number[]
-}
+} 
 
 function usersReducer(state: UsersPageType=initialState, action: UsersReducerActionType): UsersPageType {
     switch(action.type) {
@@ -42,26 +42,26 @@ export const actions = {
     followAC:(userId: number) => ({type: 'FOLLOW', userId} as const),
     unFollowAC: (userId: number) => ({type: 'UNFOLLOW', userId} as const),
     setUsersAC: (users: UserItemType[]) => ({type: 'SET_USERS', users} as const),
-    setCurrentPageAC: (newCurrentPage: number) => ({type: 'SET_CURRENT_PAGE', newCurrentPage} as const),
+    setCurrentPage: (newCurrentPage: number) => ({type: 'SET_CURRENT_PAGE', newCurrentPage} as const),
     setTotalUsersCountAC: (newTotalUsersCount: number) => ({type: 'SET_TOTAL_USERS_COUNT', newTotalUsersCount} as const),
     toogleIsFetchingAC: (isFetching: boolean) => ({type: 'TOOGLE_IS_FETCHING', isFetching} as const),
     toogleFollowingIsFetchingOnAC: (followinfIsFecthingUserId: number) => ({type: 'FOLLOWING_IS_FETCHING_ON', followinfIsFecthingUserId} as const),
     toogleFollowingIsFetchingOffAC: (followinfIsFecthingUserId: number) => ({type: 'FOLLOWING_IS_FETCHING_FALSE', followinfIsFecthingUserId} as const)
 } 
 
-export const getUsersTC = (currentPage: number) => (dispatch: Dispatch) => {
+export const getUsers = (currentPage: number) => (dispatch: Dispatch) => {
     dispatch(actions.toogleIsFetchingAC(true))
         getUsersAPI(currentPage)
         .then((data) => {
             setTimeout(() => {
                 dispatch(actions.setTotalUsersCountAC(data.totalCount)) 
-                dispatch(actions.setUsersAC(data.items))
+                dispatch(actions.setUsersAC(data.items)) 
                 dispatch(actions.toogleIsFetchingAC(false))
             }, 1000)
         })
 }
 
-export const onFollowOrUnfollowTC = (userId: number, isFollow: boolean) => (dispatch: Dispatch) => {
+export const onFollowOrUnfollow = (userId: number, isFollow: boolean) => (dispatch: Dispatch) => {
     dispatch(actions.toogleFollowingIsFetchingOnAC(userId))
     if (isFollow) {
         setTimeout(() => {
@@ -69,7 +69,7 @@ export const onFollowOrUnfollowTC = (userId: number, isFollow: boolean) => (disp
             .then((data) => {
                 if (data.resultCode === 0) { 
                     dispatch(actions.unFollowAC(userId))
-                    dispatch(actions.toogleFollowingIsFetchingOffAC(userId))
+                    dispatch(actions.toogleFollowingIsFetchingOffAC(userId)) 
                 }
             })
         }, 1000)

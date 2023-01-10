@@ -5,30 +5,43 @@ import UsersList from './UsersList/UsersList';
 import Loading from '../../resoursec/icons/Loading';
 import './users.css'
 
-const Users: React.FC<UsersCommonType> = (props) => {
+const Users: React.FC<UsersCommonType> = ({
+    usersData,
+    totalUsersCount,
+    pageSize,
+    currentPage,
+    isFetchingFollowingUsers,
+    isFetching,
+    setCurrentPage,
+    onFollowOrUnfollow
+}) => {
 
     const onFollowOrUnfollowHandler = (userId: number, isFollow: boolean) => {
-        props.onFollowOrUnfollowHandler(userId, isFollow)
+        onFollowOrUnfollow(userId, isFollow)
     }
 
     const calculatePages = () => {
         let pages = []
-        for (let i = 1; i <= Math.ceil(props.totalUsersCount / props.pageSize); i++) {
+        for (let i = 1; i <= Math.ceil(totalUsersCount / pageSize); i++) {
             pages.push(i)
         }
-        return pages.filter(el => props.currentPage - el > 3 ? false : el - props.currentPage < 4 ? true : false)
+        return pages.filter(el => currentPage - el > 3 ? false : el - currentPage < 4 ? true : false)
         .map((el, i) => {
             return (
                 <span key={i} 
-                    onClick={() => {props.setCurrentPage(el)}}
-                    className={`${el === props.currentPage && 'current-page'}`}>{el}</span>
+                    onClick={() => {setCurrentPage(el)}}
+                    className={`${el === currentPage && 'current-page'}`}>{el}</span>
             )
         } )
-    }
+    } 
 
     const pages = calculatePages()
 
-    const content = props.isFetching ? <Loading size={130}/> : <UsersList usersData={props.usersData} onFollowOrUnfollowHandler={onFollowOrUnfollowHandler} isFetchingFollowingUsers={props.isFetchingFollowingUsers}/>
+    const content = isFetching ? 
+        <Loading size={130}/> : 
+        <UsersList usersData={usersData} 
+                   onFollowOrUnfollowHandler={onFollowOrUnfollowHandler} 
+                   isFetchingFollowingUsers={isFetchingFollowingUsers}/>
 
     return (
         <div className='users-page'>

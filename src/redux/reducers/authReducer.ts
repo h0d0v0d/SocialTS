@@ -1,8 +1,8 @@
 import { Dispatch } from "redux"
-import { authAPI, getProfileUserData } from "../../api/api"
+import { authAPI, getProfileUserDataAPI } from "../../api/api"
 
 const initialState = {
-    id: 26914,
+    id: 0,
     login: '', 
     email: '',
     status: '',
@@ -19,7 +19,7 @@ function authReducer(state: AuthType=initialState, action: AuthReducerActionType
         case 'SET_PROFILE_USER_DATA': return {...state, photo: action.photo, status: action.status}
         default: return state
     }   
-} 
+}  
  
 export default authReducer
 
@@ -40,7 +40,7 @@ export const getAuthUserDataTC = () => (dispatch: Dispatch) => {
 }
 
 export const getProfileUserDataTC = (id: number) => (dispatch: Dispatch) => {
-    getProfileUserData(id)
+    getProfileUserDataAPI(id)
         .then((res) => {
             const resData = {aboutMe: 'Это блять мой статус', photo: '54'}
             dispatch(actions.setProfileUserDataAC(resData.aboutMe, resData.photo))

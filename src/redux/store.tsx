@@ -11,7 +11,7 @@ export type ActionType = any
 let reducers = combineReducers({
     profilePage: profileReducer,
     messagesPage: messagesReducer,
-    usersPage: usersReducer,
+    usersPage: usersReducer, 
     auth: authReducer
 })
 
@@ -20,3 +20,6 @@ export type RootStateType = ReturnType<typeof reducers>
 const reduxStore = createStore(reducers, applyMiddleware(thunkMiddleware))
 
 export default reduxStore 
+
+// @ts-ignore: error message
+window.store = reduxStore

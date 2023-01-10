@@ -5,7 +5,7 @@ import { RootStateType } from "../../redux/store";
 import LoginPageApiContainer from "./LoginPageApiContainer";
 
 type mapStateToPropsType = {
-    id: number
+    id: number | null
     login: string | null 
     email: string | null
     photo: string 
