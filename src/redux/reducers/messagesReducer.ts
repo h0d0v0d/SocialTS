@@ -62,10 +62,10 @@ function messagesReducer(state: MessagesPageType=initialState, action: messagesR
  
 export default messagesReducer
  
-type messagesReducerActionType = ReturnType<PropertiesType<typeof actions>>
+export type messagesReducerActionType = ReturnType<PropertiesType<typeof messagesReducerActions>>
 type PropertiesType<T> = T extends {[key: string]: infer U} ? U : never
 
-export const actions = {
+export const messagesReducerActions = {
   sendMessageAC: (id: string) => ({type: 'SEND_MESSAGE', id} as const),
   changeMessageTextAC: (text: string) => ({type: 'CHANGE_NEW_MESSAGE_TEXT', text} as const)
 }

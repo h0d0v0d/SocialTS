@@ -1,6 +1,6 @@
-import profileReducer, {ProfilePageType, UserDataType, PostItemType, actions} from "../redux/reducers/profileReducer";
+import profileReducer, {ProfilePageType, UserDataType, PostItemType, profileReducerActions} from "../redux/reducers/profileReducer";
 
-const {setUserDataAC, setPosts, addPost, changePostText} = actions
+const {setUserDataAC, setPosts, addPost, changePostText} = profileReducerActions
 const initialState: ProfilePageType = {
     userData: {
       aboutMe: "",

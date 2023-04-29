@@ -1,24 +1,30 @@
-import { UsersCommonType } from './UsersApiContainer';
+import { useEffect } from 'react';
+
+import { useAppDispatch, useAppSelector } from '../../redux/store';
+import { setUsers, onFollowOrUnfollow, usersReducerActions } from '../../redux/reducers/usersReducer';
 
 import UsersList from './UsersList/UsersList';
-
 import Loading from '../../resoursec/icons/Loading';
+import withRedirect from '../HOC/withRedirect';
+
 import './users.css'
 
-const Users: React.FC<UsersCommonType> = ({
-    usersData,
-    totalUsersCount,
-    pageSize,
-    currentPage,
-    isFetchingFollowingUsers,
-    isFetching,
-    setCurrentPage,
-    onFollowOrUnfollow
-}) => {
+export const Users: React.FC = withRedirect(() => {
+
+    const {usersData, totalUsersCount, pageSize, currentPage, isFetchingFollowingUsers, isFetching} = useAppSelector(state => state.usersPage)
+    const dispatch = useAppDispatch()
 
     const onFollowOrUnfollowHandler = (userId: number, isFollow: boolean) => {
-        onFollowOrUnfollow(userId, isFollow)
+        dispatch(onFollowOrUnfollow(userId, isFollow))
     }
+
+    const changeCurrentPage = (pageNumber: number) => {
+        dispatch(usersReducerActions.setCurrentPage(pageNumber))
+    }
+
+    useEffect(() => {
+        dispatch(setUsers(currentPage))
+    }, [])
 
     const calculatePages = () => {
         let pages = []
@@ -29,7 +35,7 @@ const Users: React.FC<UsersCommonType> = ({
         .map((el, i) => {
             return (
                 <span key={i} 
-                    onClick={() => {setCurrentPage(el)}}
+                    onClick={() => {changeCurrentPage(el)}}
                     className={`${el === currentPage && 'current-page'}`}>{el}</span>
             )
         } )
@@ -52,6 +58,4 @@ const Users: React.FC<UsersCommonType> = ({
             {content}
         </div> 
     );
-};
-
-export default Users;
+});

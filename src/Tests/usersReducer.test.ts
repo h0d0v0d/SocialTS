@@ -1,4 +1,4 @@
-import usersReducer, {actions, UsersPageType, UserItemType} from "../redux/reducers/usersReducer";
+import usersReducer, {usersReducerActions, UsersPageType, UserItemType} from "../redux/reducers/usersReducer";
 
 const {followAC, 
        unFollowAC, 
@@ -7,7 +7,7 @@ const {followAC,
        setTotalUsersCountAC, 
        toogleIsFetchingAC, 
        toogleFollowingIsFetchingOnAC, 
-       toogleFollowingIsFetchingOffAC} = actions
+       toogleFollowingIsFetchingOffAC} = usersReducerActions
 
 const initialState: UsersPageType = {
     usersData: [

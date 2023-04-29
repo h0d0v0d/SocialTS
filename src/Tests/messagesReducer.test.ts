@@ -1,6 +1,6 @@
-import messagesReducer, { MessagesPageType, actions } from "../redux/reducers/messagesReducer";
+import messagesReducer, { MessagesPageType, messagesReducerActions } from "../redux/reducers/messagesReducer";
 
-const {sendMessageAC, changeMessageTextAC} = actions
+const {sendMessageAC, changeMessageTextAC} = messagesReducerActions
 const png: string = 'https://play-lh.googleusercontent.com/N7p1LUZQj1Zrth7Jmn6tMlogB8JYv-ozxxJC-Qwq_NIqBluDSUj0Mt8BeBphM0rX9A'
 const initialState: MessagesPageType = {
     messagesData: [

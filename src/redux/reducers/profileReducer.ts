@@ -1,7 +1,7 @@
-import { Dispatch } from "redux"
 import { v1 } from "uuid"
 
-import { getProfileUserDataAPI, getStatusAPI, changeStatusAPI } from "../../api/api"
+import { ThunkType } from "../store"
+import { API } from "../../api/api"
 
 export type PostItemType = {
   id: string, 
@@ -70,10 +70,10 @@ function profileReducer(state : ProfilePageType = initialState, action: ProfileR
 
 export default profileReducer
 
-type ProfileReducerActionType = ReturnType<PropertiesType<typeof actions>> 
+export type ProfileReducerActionType = ReturnType<PropertiesType<typeof profileReducerActions>> 
 type PropertiesType<T> = T extends {[key: string]: infer U} ? U : never
 
-export const actions = {
+export const profileReducerActions = {
   setUserDataAC: (userData: UserDataType) => ({type: 'SET_USER_DATA', userData} as const),
   setUserStatusAC: (userStatus: string) => ({type: 'SET_USER_STATUS', userStatus} as const),
   setPosts: (posts: PostItemType[]) => ({type: 'SET_POSTS', posts} as const),
@@ -81,22 +81,25 @@ export const actions = {
   changePostText: (text: string) => ({type: 'CHANGE_POST_TEXT', text} as const),
 }
 
-export const getProfileUserData = (id: number) => (dispatch: Dispatch) => {
-  getProfileUserDataAPI(id)
+export const getProfileUserDataTC = (id: number): ThunkType => async dispatch => {
+  API
+  .getProfileUserData(id)
   .then((res) => {
-    dispatch(actions.setUserDataAC(res.data))
+    dispatch(profileReducerActions.setUserDataAC(res.data))
   })
-  getStatusAPI(id)
+  API
+  .getStatus(id)
   .then((res) => {
-    dispatch(actions.setUserStatusAC(res))
+    dispatch(profileReducerActions.setUserStatusAC(res))
   })
-} 
+}  
 
-export const changeStatus = (newStatus: string) => (dispatch: Dispatch) => {
-  changeStatusAPI(newStatus)
+export const changeStatusTC = (newStatus: string): ThunkType => dispatch => {
+  API
+  .changeStatus(newStatus)
   .then((res) => {
     if (res.data.resultCode === 0) {
-      dispatch(actions.setUserStatusAC(newStatus))
+      dispatch(profileReducerActions.setUserStatusAC(newStatus))
     }
   })
 }

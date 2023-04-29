@@ -10,16 +10,20 @@ interface DialogsPropsType  {
 }
 
 
-const Dialogs: React.FC<DialogsPropsType> = (props) => {
+export const Dialogs: React.FC<DialogsPropsType> = ({
+    messagesData,
+    activeIdDialog,
+    changeActiveIdDialog
+}) => {
     return ( 
         <div className='dialogs'>
             {
-                props.messagesData.map((item) => {
-                    const changeActiveIdDialog = () => {props.changeActiveIdDialog(item.id)} 
+                messagesData.map((item) => {
+                    const changeActiveIdDialogHandler = () => {changeActiveIdDialog(item.id)} 
                     return (
                         <div className='dialogs-item' key={item.id}>
-                            <div onClick={changeActiveIdDialog} className='dialogs-item-info'>{item.name}</div>
-                            <div className={`circle ${item.id === props.activeIdDialog ? 'active-circle': ''}`}></div>
+                            <div onClick={changeActiveIdDialogHandler} className='dialogs-item-info'>{item.name}</div>
+                            <div className={`circle ${item.id === activeIdDialog ? 'active-circle': ''}`}></div>
                         </div>
                     )
                 })
@@ -27,5 +31,3 @@ const Dialogs: React.FC<DialogsPropsType> = (props) => {
         </div>
     );
 };
-
-export default Dialogs;

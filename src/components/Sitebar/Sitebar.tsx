@@ -41,11 +41,3 @@ const Sitebar = () => {
 };
 
 export default Sitebar; 
-
-{/* <div className={wrappClass}
-                             key={b.id}
-                             onClick={() => {changeActiveNavButton(b.id)}}>
-                            <NavLink end
-                                     to={b.way}
-                                     className={classs}>{b.name}</NavLink>
-                        </div> */}

@@ -1,16 +1,20 @@
-import { HeaderCommonType } from './HeaderApiContainer';
-import './header.css'
 import { NavLink } from 'react-router-dom';
 
-const Header: React.FC<HeaderCommonType> = (props) => {
+import './header.css'
+import { useAppSelector } from '../../redux/store';
+
+export const Header: React.FC = () => {
+
+    const {isAuth, photo, login} = useAppSelector(state => state.auth)
+
     return (
         <div className='app-header'>
             {
-                props.isAuth 
+                isAuth 
                 ? 
                 <div className='user-login-info'>
-                    <img src={props.photo} alt="" />
-                    <h2>{props.login}</h2>
+                    <img src={photo} alt="" />
+                    <h2>{login}</h2>
                 </div>
                 : 
                 <NavLink style={{color: 'white', fontSize: '22px', border: 'none', backgroundColor: 'green'}} to='/login'>Log in</NavLink>
@@ -18,5 +22,3 @@ const Header: React.FC<HeaderCommonType> = (props) => {
         </div>
     );
 };
-
-export default Header;

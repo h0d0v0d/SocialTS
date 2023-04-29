@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import './profileStatus.css'
 
 type ProfileStatusType = {
@@ -6,7 +6,7 @@ type ProfileStatusType = {
     callBack: (newStatus: string) => void
 }
 
-const ProfileStatus: React.FC<ProfileStatusType> = ({
+export const ProfileStatus: React.FC<ProfileStatusType> = ({
     status, 
     callBack
 }) => {
@@ -33,6 +33,11 @@ const ProfileStatus: React.FC<ProfileStatusType> = ({
         callBackStarter()
     }
 
+    useEffect(() => {
+        setValue(status)
+        console.log('f')
+    }, [status])
+
     return (
         <div>
             {
@@ -49,5 +54,3 @@ const ProfileStatus: React.FC<ProfileStatusType> = ({
         </div>
     );
 };
-
-export default ProfileStatus;

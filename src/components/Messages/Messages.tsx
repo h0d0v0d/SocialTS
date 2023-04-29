@@ -1,46 +1,50 @@
 import React, { useState, useEffect } from 'react';
 
-import Dialogs from './Dialogs/Dialogs';
-import OneDialog from './OneDialog/OneDialog';
-
-import { MessagesCommonType } from './MessagesContainer';
-import { MessagesDataItemType } from '../../redux/reducers/messagesReducer';
+import {Dialogs} from './Dialogs/Dialogs';
+import {OneDialog} from './OneDialog/OneDialog';
+import { MessagesDataItemType, messagesReducerActions } from '../../redux/reducers/messagesReducer';
 
 import './messages.css'
+import { useAppDispatch, useAppSelector } from '../../redux/store';
+import withRedirect from '../HOC/withRedirect';
 
 
-const Messages: React.FC<MessagesCommonType> = (props) => { 
+export const Messages: React.FC = withRedirect(() => { 
 
-    const [activeIdDialog, setActiveIdDialog] = useState<string>(props.messagesData[0].id) 
-    const [activeDialogData, setActiveDialogData] = useState<MessagesDataItemType>(props.messagesData[0]) 
+    const {messagesData, newMessageText} = useAppSelector(state => state.messagesPage)
+    const dispatch = useAppDispatch()
+    const [activeIdDialog, setActiveIdDialog] = useState<string>(messagesData[0].id) 
+    const [activeDialogData, setActiveDialogData] = useState<MessagesDataItemType>(messagesData[0]) 
+
+    const onChangeMessageText = (text: string) => {
+        dispatch(messagesReducerActions.changeMessageTextAC(text))
+    }
 
     const onSendMessage = () => {
-        props.onSendMessage(activeIdDialog)
+        dispatch(messagesReducerActions.sendMessageAC(activeIdDialog))
     }
  
     const changeActiveIdDialog = (id: string) => {
-        setActiveIdDialog(id)
+        setActiveIdDialog(id) 
     }
 
     const changeActiveDialogData = () => {
-        setActiveDialogData(props.messagesData.filter((t: MessagesDataItemType) => t.id === activeIdDialog)[0]) 
+        setActiveDialogData(messagesData.filter((t: MessagesDataItemType) => t.id === activeIdDialog)[0]) 
     }
 
     useEffect(() => {
         changeActiveDialogData()
-    }, [props.messagesData, activeIdDialog])
+    }, [messagesData, activeIdDialog])
 
     return (
         <div className='messages'> 
-            <Dialogs messagesData={props.messagesData} 
+            <Dialogs messagesData={messagesData} 
                      activeIdDialog={activeIdDialog}
                      changeActiveIdDialog={changeActiveIdDialog}/>
             <OneDialog activeDialogData={activeDialogData}
                        onSendMessage={onSendMessage}
-                       newMessageText={props.newMessageText}
-                       onChangeMessageText={props.onChangeMessageText}/>
+                       newMessageText={newMessageText}
+                       onChangeMessageText={onChangeMessageText}/>
         </div>
     );
-};
-
-export default Messages;
+});

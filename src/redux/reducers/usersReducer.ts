@@ -1,6 +1,6 @@
-import { Dispatch } from "redux"
+import { ThunkType } from "../store"
 
-import { followAPI, getUsersAPI, unFollowAPI } from "../../api/api"
+import { API } from "../../api/api"
 
 export type UserItemType = {
     name: string,
@@ -35,10 +35,10 @@ function usersReducer(state: UsersPageType=initialState, action: UsersReducerAct
  
 export default usersReducer
 
-type UsersReducerActionType = ReturnType<PropertiesType<typeof actions>> 
+export type UsersReducerActionType = ReturnType<PropertiesType<typeof usersReducerActions>> 
 type PropertiesType<T> = T extends {[key: string]: infer U} ? U : never
 
-export const actions = {
+export const usersReducerActions = {
     followAC:(userId: number) => ({type: 'FOLLOW', userId} as const),
     unFollowAC: (userId: number) => ({type: 'UNFOLLOW', userId} as const),
     setUsersAC: (users: UserItemType[]) => ({type: 'SET_USERS', users} as const),
@@ -49,38 +49,41 @@ export const actions = {
     toogleFollowingIsFetchingOffAC: (followinfIsFecthingUserId: number) => ({type: 'FOLLOWING_IS_FETCHING_FALSE', followinfIsFecthingUserId} as const)
 } 
 
-export const getUsers = (currentPage: number) => (dispatch: Dispatch) => {
-    dispatch(actions.toogleIsFetchingAC(true))
-        getUsersAPI(currentPage)
+export const setUsers = (currentPage: number): ThunkType => dispatch => {
+    dispatch(usersReducerActions.toogleIsFetchingAC(true))
+        API
+        .getUsers(currentPage)
         .then((data) => {
             setTimeout(() => {
-                dispatch(actions.setTotalUsersCountAC(data.totalCount)) 
-                dispatch(actions.setUsersAC(data.items)) 
-                dispatch(actions.toogleIsFetchingAC(false))
-            }, 1000)
+                dispatch(usersReducerActions.setTotalUsersCountAC(data.totalCount)) 
+                dispatch(usersReducerActions.setUsersAC(data.items)) 
+                dispatch(usersReducerActions.toogleIsFetchingAC(false))
+            }, 1000) 
         })
 }
 
-export const onFollowOrUnfollow = (userId: number, isFollow: boolean) => (dispatch: Dispatch) => {
-    dispatch(actions.toogleFollowingIsFetchingOnAC(userId))
+export const onFollowOrUnfollow = (userId: number, isFollow: boolean): ThunkType => dispatch => {
+    dispatch(usersReducerActions.toogleFollowingIsFetchingOnAC(userId))
     if (isFollow) {
         setTimeout(() => {
-            unFollowAPI(userId)
+            API
+            .unFollow(userId)
             .then((data) => {
                 if (data.resultCode === 0) { 
-                    dispatch(actions.unFollowAC(userId))
-                    dispatch(actions.toogleFollowingIsFetchingOffAC(userId)) 
+                    dispatch(usersReducerActions.unFollowAC(userId))
+                    dispatch(usersReducerActions.toogleFollowingIsFetchingOffAC(userId)) 
                 }
             })
         }, 1000)
     }
     if (!isFollow) {
         setTimeout(() => {
-            followAPI(userId) 
+            API
+            .follow(userId)
             .then((data) => {
                 if (data.resultCode === 0) {
-                    dispatch(actions.followAC(userId))
-                    dispatch(actions.toogleFollowingIsFetchingOffAC(userId))
+                    dispatch(usersReducerActions.followAC(userId))
+                    dispatch(usersReducerActions.toogleFollowingIsFetchingOffAC(userId))
                 }
             })
         }, 1000)

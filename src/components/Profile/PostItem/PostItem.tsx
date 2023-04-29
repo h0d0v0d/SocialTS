@@ -6,7 +6,7 @@ type PostItemPropsType = {
     itemPostData: PostItemType 
 }
 
-const PostItem: React.FC<PostItemPropsType> = ({
+export const PostItem: React.FC<PostItemPropsType> = ({
     itemPostData
 }) => {
 
@@ -22,5 +22,3 @@ const PostItem: React.FC<PostItemPropsType> = ({
         </div>
     );
 };
-
-export default PostItem;

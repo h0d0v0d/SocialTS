@@ -1,41 +1,52 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useEffect } from 'react';
+import { useLocation, useParams } from 'react-router-dom';
 
-import PostItem from './PostItem/PostItem';
-import ProfileStatus from './ProfileStatus/ProfileStatus';
+import { PostItemType, changeStatusTC, getProfileUserDataTC, profileReducerActions } from '../../redux/reducers/profileReducer'
+import { useAppDispatch, useAppSelector } from '../../redux/store';
 
-import { PostItemType } from '../../redux/reducers/profileReducer'
-import { ProfileCommonType } from './ProfileApiContainer';
+import {PostItem} from './PostItem/PostItem';
+import {ProfileStatus} from './ProfileStatus/ProfileStatus';
+import withRedirect from '../HOC/withRedirect';
 
 import './profile.css'
 
-const png: string = 'https://play-lh.googleusercontent.com/N7p1LUZQj1Zrth7Jmn6tMlogB8JYv-ozxxJC-Qwq_NIqBluDSUj0Mt8BeBphM0rX9A'
+export const Profile: React.FC = withRedirect(() => {
 
-const Profile: React.FC<ProfileCommonType> = ({
-    userData,
-    userStatus,
-    postText,
-    postsData,
-    changeStatus,
-    changePostText,
-    addPost
-}) => {
+    const authId = useAppSelector(state => state.auth.id)
+    const {userData, userStatus, postText, postsData} = useAppSelector(state => state.profilePage)
+    const params = useParams()
+    const location = useLocation()
+    const dispatch = useAppDispatch()
     
     const changePostTextHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        changePostText(e.currentTarget.value)
+        dispatch(profileReducerActions.changePostText(e.currentTarget.value))
     }
 
-    const src = userData.photos.small ? userData.photos.small : png
+    const changeStatus = (status: string) => {
+        dispatch(changeStatusTC(status))
+    }
+
+    const addPost = () => {
+        dispatch(profileReducerActions.addPost())
+    }
+    
+    useEffect(() => {
+        let id: number = location.pathname !== '/' ? Number(params.userId) : authId
+        dispatch(getProfileUserDataTC(id))
+    }, [location.key]) 
+
+    const src = userData.photos.small ? userData.photos.small : 'https://play-lh.googleusercontent.com/N7p1LUZQj1Zrth7Jmn6tMlogB8JYv-ozxxJC-Qwq_NIqBluDSUj0Mt8BeBphM0rX9A'
 
     const posts = postsData.map((item: PostItemType) =>{
         return <PostItem itemPostData={item} key={item.id}/>  
     })
 
-    return (
+    return ( 
         <div className='profile' >
             <img src={src} alt="user" className='profile-img'/>
             <div className="name">
                 <h2>{userData.fullName}</h2>
-            </div>
+            </div> 
             <ProfileStatus status={userStatus} callBack={changeStatus}/>
             <div className="new-post-titile"> 
                 <h3>New post</h3> 
@@ -47,6 +58,5 @@ const Profile: React.FC<ProfileCommonType> = ({
             </div>
         </div>
     ); 
-};
+});
 
-export default Profile;

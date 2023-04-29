@@ -1,5 +1,5 @@
-import { Dispatch } from "redux"
-import { authAPI, getProfileUserDataAPI } from "../../api/api"
+import { ThunkType } from "../store"
+import { API } from "../../api/api"
 
 const initialState = {
     id: 0,
@@ -23,7 +23,7 @@ function authReducer(state: AuthType=initialState, action: AuthReducerActionType
  
 export default authReducer
 
-type AuthReducerActionType = ReturnType<PropertiesType<typeof actions>> 
+export type AuthReducerActionType = ReturnType<PropertiesType<typeof actions>> 
 type PropertiesType<T> = T extends {[key: string]: infer U} ? U : never
 
 export const actions = {
@@ -31,18 +31,23 @@ export const actions = {
     setProfileUserDataAC: (status: string, photo: string) => ({type: 'SET_PROFILE_USER_DATA', status, photo} as const)
 }
 
-export const getAuthUserDataTC = () => (dispatch: Dispatch) => {
-    authAPI()
-        .then((data) => {
-            const {id, email, login} = data
+export const getAuthUserDataTC = (): ThunkType => async dispatch => {
+    API
+    .auth()
+    .then((res) => {
+        if (res.resultCode === 0) {
+            const {id, email, login} = res.data
             dispatch(actions.setAuthUserDataAC(id, email, login))
-        })
+        }
+    }) 
 }
 
-export const getProfileUserDataTC = (id: number) => (dispatch: Dispatch) => {
-    getProfileUserDataAPI(id)
-        .then((res) => {
-            const resData = {aboutMe: 'Это блять мой статус', photo: '54'}
-            dispatch(actions.setProfileUserDataAC(resData.aboutMe, resData.photo))
-        })
+export const getProfileUserDataTC = (id: number): ThunkType => async dispatch => {
+    API
+    .getProfileUserData(id)
+    .then((res) => {
+        const resData = {aboutMe: 'Это блять мой статус', photo: '54'}
+        dispatch(actions.setProfileUserDataAC(resData.aboutMe, resData.photo))
+        console.log(res)
+    }) 
 }
